@@ -1,6 +1,14 @@
 /*
  * Ejemplo básico de lectura QR con ESP32 y módulo GM65
  * 
+ * NOTA: Este es un ejemplo educativo con propósitos de demostración.
+ * Para producción:
+ * - Use WiFiManager para configuración de credenciales
+ * - Almacene credenciales en EEPROM/SPIFFS
+ * - Use variables de entorno o configuración segura
+ * - Implemente MQTTS (puerto 8883) en lugar de MQTT sin cifrar
+ * - Use NTP para timestamps reales en lugar de millis()
+ * 
  * Hardware:
  * - ESP32 DevKit
  * - Módulo GM65 conectado a UART2
@@ -16,13 +24,13 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
-// Configuración Wi-Fi
+// Configuración Wi-Fi (CAMBIAR PARA PRODUCCIÓN - usar WiFiManager o EEPROM)
 const char* ssid = "TU_SSID";
 const char* password = "TU_PASSWORD";
 
-// Configuración MQTT
+// Configuración MQTT (CAMBIAR PARA PRODUCCIÓN - usar variables de entorno)
 const char* mqtt_server = "broker.ejemplo.com";
-const int mqtt_port = 1883;
+const int mqtt_port = 1883;  // Usar 8883 para MQTTS en producción
 const char* mqtt_user = "usuario";
 const char* mqtt_pass = "password";
 const char* mqtt_topic_publish = "totem/lecturas";

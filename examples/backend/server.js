@@ -1,8 +1,17 @@
 /**
  * Ejemplo de servidor backend Node.js con Express y MQTT
  * 
+ * NOTA: Este es un ejemplo educativo con propósitos de demostración.
+ * Para producción:
+ * - Use variables de entorno para todas las credenciales (process.env)
+ * - Implemente MQTTS (puerto 8883) en lugar de MQTT sin cifrar
+ * - Use un gestor de secretos (AWS Secrets Manager, HashiCorp Vault)
+ * - Implemente autenticación y autorización robusta
+ * - Use HTTPS con certificados válidos
+ * - Implemente rate limiting y validación de entrada
+ * 
  * Instalación:
- * npm install express mqtt body-parser pg
+ * npm install express mqtt body-parser pg dotenv
  */
 
 const express = require('express');
@@ -11,21 +20,23 @@ const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Configuración de base de datos PostgreSQL
+// PRODUCCIÓN: Usar process.env para todas estas variables
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'qr_totem',
-  password: 'password',
-  port: 5432,
+  user: process.env.DB_USER || 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  database: process.env.DB_NAME || 'qr_totem',
+  password: process.env.DB_PASSWORD || 'password',  // CAMBIAR EN PRODUCCIÓN
+  port: parseInt(process.env.DB_PORT) || 5432,
 });
 
 // Configuración MQTT
-const mqttClient = mqtt.connect('mqtt://broker.ejemplo.com:1883', {
-  username: 'usuario',
-  password: 'password'
+// PRODUCCIÓN: Usar MQTTS (mqtts://) y variables de entorno
+const mqttClient = mqtt.connect(process.env.MQTT_URL || 'mqtt://broker.ejemplo.com:1883', {
+  username: process.env.MQTT_USER || 'usuario',
+  password: process.env.MQTT_PASSWORD || 'password'  // CAMBIAR EN PRODUCCIÓN
 });
 
 // Middleware

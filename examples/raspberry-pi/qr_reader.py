@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 """
 Ejemplo básico de lectura QR con Raspberry Pi y webcam USB
+
+NOTA: Este es un ejemplo educativo con propósitos de demostración.
+Para producción:
+- Cargue credenciales desde variables de entorno (os.getenv())
+- Use archivos de configuración seguros (config.ini, .env)
+- Implemente manejo de errores robusto
+- Use logging en lugar de print
+- Haga el debounce_time configurable
+
 Requiere: OpenCV, ZBar, requests
 
 Instalación:
@@ -15,11 +24,12 @@ from pyzbar import pyzbar
 from gpiozero import LED
 from datetime import datetime
 
-# Configuración
+# Configuración (CAMBIAR PARA PRODUCCIÓN - usar variables de entorno)
 DEVICE_ID = "TOTEM_001"
 API_URL = "https://api.ejemplo.com/qr/scan"
-API_TOKEN = "tu_token_aqui"
+API_TOKEN = "tu_token_aqui"  # Usar os.getenv('API_TOKEN') en producción
 CAMERA_INDEX = 0
+DEBOUNCE_TIME = 3  # Segundos entre lecturas del mismo QR
 
 # LEDs en GPIO
 led_verde = LED(17)
@@ -47,9 +57,9 @@ class QRReader:
         for codigo in codigos:
             qr_data = codigo.data.decode('utf-8')
             
-            # Evitar lecturas duplicadas (debounce de 3 segundos)
+            # Evitar lecturas duplicadas (debounce)
             tiempo_actual = time.time()
-            if qr_data == self.ultimo_qr and (tiempo_actual - self.ultimo_tiempo) < 3:
+            if qr_data == self.ultimo_qr and (tiempo_actual - self.ultimo_tiempo) < DEBOUNCE_TIME:
                 continue
                 
             self.ultimo_qr = qr_data
