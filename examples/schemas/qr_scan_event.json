@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QR Scan Event",
+  "description": "Schema para eventos de lectura de QR enviados por dispositivos",
+  "type": "object",
+  "required": ["type", "device_id", "timestamp", "data"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "qr_scan",
+      "description": "Tipo de evento"
+    },
+    "device_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_]+$",
+      "minLength": 4,
+      "maxLength": 50,
+      "description": "Identificador único del dispositivo",
+      "examples": ["TOTEM_001", "QR_READER_042"]
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 1000000000,
+      "description": "Unix timestamp en segundos"
+    },
+    "data": {
+      "type": "object",
+      "required": ["qr_code"],
+      "properties": {
+        "qr_code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Contenido del código QR leído"
+        },
+        "scan_duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Duración del escaneo en milisegundos"
+        },
+        "signal_strength": {
+          "type": "integer",
+          "minimum": -100,
+          "maximum": 0,
+          "description": "Fuerza de señal Wi-Fi en dBm"
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "description": "Ubicación GPS (opcional)",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "Latitud"
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Longitud"
+        },
+        "accuracy_m": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Precisión en metros"
+        },
+        "altitude_m": {
+          "type": "number",
+          "description": "Altitud en metros"
+        },
+        "satellites": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Número de satélites GPS"
+        },
+        "timestamp": {
+          "type": "integer",
+          "description": "Timestamp del fix GPS"
+        }
+      },
+      "required": ["lat", "lon"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Metadatos adicionales del dispositivo",
+      "properties": {
+        "firmware_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Versión del firmware"
+        },
+        "uptime_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Tiempo de operación en segundos"
+        },
+        "free_memory_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Memoria libre en bytes"
+        },
+        "battery_percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Porcentaje de batería"
+        }
+      }
+    }
+  }
+}
