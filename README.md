@@ -30,16 +30,53 @@ No se busca aún una solución final ni industrial.
 - Seguridad avanzada
 - Escalabilidad masiva
 
-## Propuestas técnicas
-En la carpeta `proposals/` se presentan distintas propuestas de implementación del prototipo.
+## Estructura del repositorio
 
-Cada propuesta:
-- Es independiente
-- Describe una posible forma de construir el módulo
-- Incluye componentes principales, costos aproximados y pros/cons
-- No es definitiva
+### 📁 `/propuestas/` - Módulos Base ("Cerebros")
+Contiene las opciones de **módulos base** que actúan como cerebro del sistema:
+- [ESP32-DevKit](propuestas/esp32-devkit.md) - $5-8, Wi-Fi integrado ⭐ **Recomendado**
+- [ESP32-S3](propuestas/esp32-s3.md) - $12-15, más potente
+- [Raspberry Pi Zero 2W](propuestas/raspberry-pi-zero-2w.md) - $30-40, Linux completo
 
-El objetivo es **compararlas y elegir una para avanzar**.
+Cada módulo base incluye:
+- Especificaciones técnicas completas
+- Compatibilidad con módulos periféricos
+- Ejemplos de configuración
+- Pros y contras
+
+### 📁 `/modulos/` - Módulos Periféricos
+Catálogo de **componentes** que se conectan al módulo base:
+- [📷 Lectores QR](modulos/lector-qr.md) - Escáneres UART, cámaras, USB
+- [📡 Wi-Fi](modulos/wifi.md) - Conectividad inalámbrica (integrada)
+- [🛰️ GPS](modulos/gps.md) - Geolocalización GNSS
+- [📶 LTE/Celular](modulos/lte.md) - Conectividad móvil 4G
+- [💡 Indicadores LED](modulos/led-indicadores.md) - LEDs, RGB, pantallas
+
+Cada módulo incluye:
+- Modelos disponibles y precios
+- **Tabla de compatibilidad** con cada módulo base
+- Ejemplos de código
+- Recomendaciones de compra
+
+## Enfoque modular
+
+Este proyecto usa un **diseño modular** donde:
+1. Eliges un **módulo base** (cerebro) según tus necesidades
+2. Conectas **módulos periféricos** según funcionalidades requeridas
+3. Cada módulo especifica compatibilidad con los módulos base
+
+### Ejemplo de configuración
+```
+Módulo Base: ESP32-DevKit ($8)
+  ├── Lector QR: Escáner UART ($35) 
+  ├── GPS: NEO-M8N ($15)
+  ├── Wi-Fi: Integrado
+  ├── Indicadores: LED RGB ($0.50)
+  └── (Futuro) LTE: SIM7600 ($35)
+  
+Total base: ~$58
+Con LTE futuro: ~$93
+```
 
 ## Criterios generales
 - Componentes disponibles comercialmente
