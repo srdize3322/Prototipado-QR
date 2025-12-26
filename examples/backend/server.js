@@ -8,10 +8,15 @@
  * - Use un gestor de secretos (AWS Secrets Manager, HashiCorp Vault)
  * - Implemente autenticación y autorización robusta
  * - Use HTTPS con certificados válidos
- * - Implemente rate limiting y validación de entrada
+ * - Implemente rate limiting (express-rate-limit) en todos los endpoints
+ * - Implemente validación de entrada completa
+ * - Use helmet.js para headers de seguridad
  * 
  * Instalación:
  * npm install express mqtt body-parser pg dotenv
+ * 
+ * Para producción adicional:
+ * npm install express-rate-limit helmet express-validator
  */
 
 const express = require('express');
@@ -103,6 +108,7 @@ app.post('/api/qr/scan', async (req, res) => {
 });
 
 // API REST - Obtener estadísticas
+// PRODUCCIÓN: Implementar rate limiting (ej: express-rate-limit)
 app.get('/api/stats', async (req, res) => {
   try {
     const result = await pool.query(`
@@ -129,6 +135,7 @@ app.get('/api/stats', async (req, res) => {
 });
 
 // API REST - Obtener lecturas recientes
+// PRODUCCIÓN: Implementar rate limiting y autenticación
 app.get('/api/lecturas/recientes', async (req, res) => {
   try {
     const limit = req.query.limit || 50;
