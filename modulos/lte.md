@@ -1,376 +1,166 @@
-# Módulos LTE / Celular (GSM/3G/4G)
+# LTE/Celular - Conectividad Móvil
 
-Este documento lista opciones de conectividad celular para comunicación cuando Wi-Fi no está disponible.
+## Cuándo Usar LTE
 
-## Índice
-1. [Módulos 2G (GSM/GPRS)](#módulos-2g-gsmgprs)
-2. [Módulos 3G](#módulos-3g)
-3. [Módulos 4G LTE](#módulos-4g-lte)
-4. [Módulos combinados GSM+GPS](#módulos-combinados-gsmgps)
-5. [Dongles USB 4G](#dongles-usb-4g)
+✅ **Usar si:**
+- Sin cobertura Wi-Fi confiable
+- Dispositivos móviles en vehículos
+- Backup de conectividad crítico
 
----
-
-## ⚠️ Nota importante - Sunset 2G/3G
-
-**Chile (y muchos países) están descontinuando redes 2G/3G:**
-- **Movistar Chile:** 3G apagado en 2025
-- **Entel Chile:** 3G en proceso de descontinuación
-- **Claro Chile:** Similar
-
-✅ **Recomendación:** Usar módulos **4G LTE** (Cat-1 o superior) para proyectos nuevos.
+⚠️ **Consideraciones:**
+- Costo mensual (plan datos)
+- Mayor consumo energía
+- Requiere SIM card
+- Antena externa recomendada
 
 ---
 
-## Módulos 2G (GSM/GPRS)
+## Opciones Disponibles
 
-### ⚠️ Advertencia
-Redes 2G están siendo descontinuadas globalmente. **No recomendado para proyectos nuevos** excepto como fallback temporal.
+| Módulo | Bandas | Interface | Precio | Consumo | GPS | Notas |
+|--------|--------|-----------|--------|---------|-----|-------|
+| **SIM800L** | 2G GSM | UART | $8-12 | 2A peak | ❌ | 2G obsoleto, evitar |
+| **SIM7600** | 4G LTE | UART | $25-35 | 2A peak | ✅ | Recomendado |
+| **SIM7070G** | LTE Cat-M1/NB-IoT | UART | $15-20 | 500mA | ✅ | Bajo consumo IoT |
+| **A9G** | 2G GSM | UART | $10-15 | 1A | ✅ | GPS integrado, 2G |
 
-### SIM800L
+---
 
-#### Descripación
-Módulo GSM/GPRS quad-band muy económico y popular.
+## Recomendado: SIM7600 (LTE 4G)
 
-#### Especificaciones
-- **Bandas:** 850/900/1800/1900 MHz
-- **GPRS:** Multi-slot class 10 (~85.6 kbps)
-- **Interfaz:** UART (comandos AT)
-- **Voltaje:** 3.4V - 4.4V (⚠️ No 5V ni 3.3V directo)
+### Specs:
+- **Precio:** $25-35 (módulo), $40-50 (breakout con reguladores)
+- **Bandas:** LTE Cat-1 (B1/B3/B5/B7/B8/B20/B28)
+- **Interface:** UART (115200 baud), comandos AT
+- **Voltaje:** 3.4-4.2V (requiere fuente dedicada)
 - **Consumo:** 
-  - Sleep: 1 mA
-  - Idle: 10 mA
-  - Transmitiendo: **500-2000 mA** (picos)
-- **Costo:** $4-8
+  - Sleep: <1 mA
+  - Idle: ~20 mA
+  - Transmisión: **2A peak**
+- **GPS:** Integrado (ventaja)
+- **Antena:** Externa requerida (LTE + GPS)
 
-#### Compatibilidad
+### Compatibilidad:
 
-| Módulo Base | Compatibilidad | Notas |
-|-------------|----------------|-------|
-| **ESP32-DevKit** | ⚠️ **Complejo** | Requiere fuente externa 3.8-4.2V con capacidad >2A. No alimentar desde ESP32 |
-| **ESP32-S3** | ⚠️ **Complejo** | Mismo caso |
-| **Raspberry Pi Zero 2W** | ⚠️ **Complejo** | Requiere fuente externa robusta |
+| Plataforma | Compatible | Notas |
+|------------|-----------|-------|
+| ESP32 | ⚠️ **Con fuente externa** | ESP32 no puede suministrar 2A, requiere buck 4V/3A externo |
+| Orange Pi | ✅ USB 4G dongle mejor | Usar dongle USB LTE más simple |
+| RPi Zero 2W | ✅ USB 4G dongle mejor | Igual OPi |
+| Arduino MKR | ❌ | Usar MKR GSM 1400 ($75) |
 
-#### Problemas comunes
-- ❌ **Voltage:** 3.3V es insuficiente, 5V es mucho → usar LDO 3.8V-4V
-- ❌ **Corriente:** Picos de 2A destruyen reguladores débiles
-- ❌ **Brown-out:** ESP32 se resetea si comparte fuente con SIM800L
+---
 
-#### Configuración recomendada
+## Integración con ESP32 (Complejo)
+
+### Circuitería requerida:
 ```
-Fuente 5V → Buck/LDO ajustable a 4V (>2A) → SIM800L
-         └→ 3.3V regulador → ESP32
-
-Condensadores:
-- 1000µF cerca de VCC SIM800L
-- 100µF adicional
+Fuente 5V/3A → Buck Converter (3.8V/3A) → SIM7600
+                     ↓
+              ESP32 (alimentado separado 5V/1A)
 ```
 
-### SIM900/SIM900A
-- Similar a SIM800L
-- Más antiguo, menos eficiente
-- **No recomendado** - Usar SIM800L si es necesario
-
----
-
-## Módulos 3G
-
-### SIM5320 / SIM5360
-
-#### Descripción
-Módulos 3G HSPA+, algunos con GPS integrado.
-
-#### Especificaciones
-- **3G:** WCDMA/HSPA+
-- **Velocidad:** Hasta 7.2 Mbps DL, 5.76 Mbps UL
-- **GPS:** SIM5360 incluye GPS
-- **Interfaz:** UART
-- **Voltaje:** 3.4-4.2V
-- **Consumo:** Similar a SIM800L (picos altos)
-- **Costo:** $15-25
-
-#### Compatibilidad
-- Similar a SIM800L (requiere fuente robusta)
-
-#### Estado
-⚠️ **3G en descontinuación** - No recomendado para proyectos nuevos
-
----
-
-## Módulos 4G LTE
-
-### ✅ Recomendado para proyectos nuevos
-
-### SIM7600E / SIM7600SA / SIM7600G
-
-#### Descripción
-Módulo LTE Cat-1 con fallback 3G/2G y GPS integrado. Uno de los más versátiles.
-
-#### Especificaciones
-- **LTE Cat-1:** Hasta 10 Mbps DL, 5 Mbps UL
-- **Bandas (SIM7600SA-H - Sudamérica):**
-  - LTE: B2/B3/B4/B5/B7/B8/B28
-  - WCDMA: B2/B4/B5/B8
-  - GSM: 850/900/1800/1900 MHz
-- **GPS:** Integrado
-- **Interfaz:** UART (comandos AT similares a SIM800)
-- **Voltaje:** 3.4-4.2V
-- **Consumo:** 
-  - Sleep: 2 mA
-  - Idle: 20-50 mA
-  - LTE transmitiendo: **500-2000 mA** (picos)
-- **Costo:** $25-40
-
-#### Variantes
-- **SIM7600E:** Europa
-- **SIM7600SA:** Sudamérica (✅ **Usar en Chile**)
-- **SIM7600G:** Global (compatible Chile)
-
-#### Compatibilidad
-
-| Módulo Base | Compatibilidad | Notas |
-|-------------|----------------|-------|
-| **ESP32-DevKit** | ⚠️ **Medio** | Requiere fuente externa robusta (>2A), UART2 para AT commands |
-| **ESP32-S3** | ⚠️ **Medio** | Mismo caso |
-| **Raspberry Pi Zero 2W** | ✅ **Buena** | Via USB o GPIO serial, fuente >2A requerida |
-
-#### Ventajas sobre SIM800L
-- ✅ **4G LTE** - No obsoleto
-- ✅ **GPS integrado** - Un módulo menos
-- ✅ **Fallback automático** a 3G/2G si 4G no disponible
-- ✅ **Mayor velocidad**
-
----
-
-### SIM7000E / SIM7000G (NB-IoT / LTE-M)
-
-#### Descripción
-Módulo LTE-M y NB-IoT (Cat-M1/Cat-NB1), diseñado para IoT de bajo consumo.
-
-#### Especificaciones
-- **LTE Cat-M1:** 375 kbps DL/UL
-- **NB-IoT:** 60 kbps DL, 30 kbps UL
-- **GPS:** Integrado
-- **Voltaje:** 3.3-4.3V
-- **Consumo:** 
-  - PSM (sleep): ~3 µA
-  - Idle: ~5 mA
-  - Transmitiendo: ~500 mA (menos picos que Cat-1)
-- **Costo:** $18-30
-
-#### Compatibilidad en Chile
-⚠️ **Verificar cobertura NB-IoT/LTE-M:**
-- **Entel:** LTE-M disponible
-- **Movistar/Claro:** Verificar
-
-#### Ventajas
-- ✅ **Bajo consumo** - Ideal para batería
-- ✅ **PSM mode** - Micro-amperios en sleep
-- ✅ **Costo menor** que Cat-1
-
-#### Desventajas
-- ⚠️ **Velocidad baja** - Suficiente para QR codes, no para video
-- ⚠️ **Cobertura limitada** - NB-IoT no en todas partes
-
----
-
-### Quectel EC25 / EC20
-
-#### Descripción
-Módulos LTE Cat-4, mayor velocidad que SIM7600.
-
-#### Especificaciones
-- **LTE Cat-4:** Hasta 150 Mbps DL, 50 Mbps UL
-- **Interfaz:** USB (principal) o UART
-- **Voltaje:** 3.3-4.3V
-- **Consumo:** Mayor que Cat-1
-- **Costo:** $30-50
-
-#### Compatibilidad
-
-| Módulo Base | Compatibilidad | Notas |
-|-------------|----------------|-------|
-| **ESP32-DevKit** | ❌ **No** | USB principal, no host en ESP32 |
-| **ESP32-S3** | ⚠️ **Limitado** | USB OTG teórico |
-| **Raspberry Pi Zero 2W** | ✅ **Excelente** | USB nativo, drivers Linux |
-
----
-
-## Módulos combinados GSM+GPS
-
-Ver sección en [módulos GPS](gps.md#módulos-gsmgps-combinados):
-- **A9G** (2G + GPS) - $10-15
-- **SIM868** (2G + GPS + BT) - $15-20
-- **SIM7600** (4G + GPS) - $25-40
-
----
-
-## Dongles USB 4G
-
-### Descripción
-Módems USB 4G comerciales (Huawei, ZTE, etc.) reutilizados como módems IoT.
-
-### Modelos comunes
-- **Huawei E3372:** LTE Cat-4, ~$30-50
-- **ZTE MF823:** LTE Cat-4, ~$25-40
-- **Huawei E3276:** LTE Cat-4, ~$30-45
-
-### Ventajas
-- ✅ Plug-and-play en Raspberry Pi (drivers incluidos)
-- ✅ Alta velocidad (Cat-4)
-- ✅ Incluyen carcasa y conector SIM
-
-### Desventajas
-- ❌ Solo compatible con Raspberry Pi (USB host requerido)
-- ⚠️ Consumo alto
-- ⚠️ Tamaño grande
-
-### Compatibilidad
-
-| Módulo Base | Compatibilidad |
-|-------------|----------------|
-| **ESP32-DevKit** | ❌ No |
-| **ESP32-S3** | ❌ No |
-| **Raspberry Pi Zero 2W** | ✅ Excelente |
-
----
-
-## Comparativa de costos y tecnología
-
-| Módulo | Tecnología | Precio (USD) | Velocidad | Estado | Recomendación |
-|--------|------------|--------------|-----------|--------|---------------|
-| SIM800L | 2G GSM/GPRS | 4-8 | 85 kbps | ❌ Obsoleto | ❌ Evitar |
-| SIM5320 | 3G HSPA+ | 15-25 | 7.2 Mbps | ⚠️ Descontinuando | ❌ Evitar |
-| SIM7000 | NB-IoT/LTE-M | 18-30 | 375 kbps | ✅ Actual | ✅ IoT bajo consumo |
-| SIM7600 | LTE Cat-1 | 25-40 | 10 Mbps | ✅ Actual | ✅ **Recomendado** |
-| EC25 | LTE Cat-4 | 30-50 | 150 Mbps | ✅ Actual | ⚠️ Solo RPi |
-| Dongle USB | LTE Cat-4 | 30-50 | 150 Mbps | ✅ Actual | ⚠️ Solo RPi |
-
----
-
-## Recomendaciones por módulo base
-
-### Para ESP32-DevKit
-✅ **SIM7600SA-H** ($30-40)
-- UART2 para comandos AT
-- Fuente externa 5V/3A
-- Regulador 4V/2A para SIM7600
-- Condensadores 1000µF + 100µF
-- ⚠️ **Advertencia:** Gestión de energía compleja
-
-### Para ESP32-S3
-✅ **SIM7600SA-H** ($30-40)
-- Igual que ESP32-DevKit
-
-### Para Raspberry Pi Zero 2W
-✅ **Opción 1:** Dongle USB 4G ($30-50)
-- Plug-and-play
-- Más simple que módulo UART
-
-✅ **Opción 2:** SIM7600 via USB ($30-40)
-- Si necesitas GPS integrado
-
----
-
-## Proveedores Chile
-
-### SIM Cards IoT/M2M
-- **Entel IoT**
-- **Movistar M2M**
-- **Claro IoT**
-- **WOM** (verificar cobertura rural)
-
-### Planes típicos
-- **Prepago:** ~$3,000-5,000 CLP/mes (500 MB - 1 GB)
-- **Pospago IoT:** Desde $2,000 CLP/mes (planes bajos datos)
-
----
-
-## Configuración típica (ESP32 + SIM7600)
-
-### Hardware crítico
+### Cableado UART:
 ```
-Fuente 5V/3A
-    ├→ Buck 4V/2A → SIM7600 (VCC + capacitores)
-    └→ Buck 3.3V/1A → ESP32
-
-ESP32 <--UART--> SIM7600
-      (GPIO 16/17)
-
-Capacitores en SIM7600:
-- 1000µF electrolítico (cerca de VCC)
-- 100µF cerámico
-- 10µF cerámico
+SIM7600         ESP32
+────────────────────────
+TXD          → GPIO4 (RX software serial)
+RXD          → GPIO2 (TX software serial)
+PWRKEY       → GPIO5 (control encendido)
 ```
 
-### Software (Arduino)
+### Código básico:
 ```cpp
-#include <HardwareSerial.h>
+#include <SoftwareSerial.h>
 
-HardwareSerial SIM(2); // UART2
+SoftwareSerial sim7600(4, 2); // RX, TX
 
 void setup() {
-  Serial.begin(115200);
-  SIM.begin(115200, SERIAL_8N1, 16, 17); // RX=16, TX=17
+  sim7600.begin(115200);
   
-  delay(3000); // Esperar inicialización del módulo
-  
-  // Test AT
-  SIM.println("AT");
-  delay(1000);
-  while(SIM.available()) {
-    Serial.write(SIM.read());
-  }
-  
-  // Conectar a red
-  SIM.println("AT+CGATT=1"); // Attach GPRS
-  delay(2000);
-  
-  // Configurar APN (ejemplo Entel Chile)
-  SIM.println("AT+CGDCONT=1,\"IP\",\"imovil.entelpcs.cl\"");
-  delay(1000);
-  
-  // Activar contexto PDP
-  SIM.println("AT+CGACT=1,1");
-  delay(5000);
-  
-  Serial.println("4G conectado!");
-}
-
-void loop() {
-  // HTTP request via AT commands...
+  // Enviar HTTP POST
+  sim7600.println("AT+HTTPINIT");
+  sim7600.println("AT+HTTPPARA=\"URL\",\"https://servidor.com/api/scan\"");
+  sim7600.println("AT+HTTPDATA=200,10000"); // 200 bytes, 10s timeout
+  delay(100);
+  sim7600.println("{\"device_id\":\"ESP32-001\"}");
+  sim7600.println("AT+HTTPACTION=1"); // POST
 }
 ```
 
 ---
 
-## Consideraciones críticas
+## Alternativa: USB 4G Dongle (Linux)
 
-### Fuente de alimentación
-- ⚠️ **Nunca alimentar módulo LTE desde pin 3.3V/5V del ESP32**
-- ✅ Usar fuente externa con regulador dedicado
-- ✅ Capacitores grandes cerca del módulo (1000µF mínimo)
-- ✅ Cables cortos y gruesos (AWG 22 o menor)
+### Para RPi/Orange Pi:
+- **Precio:** $30-50
+- **Ventaja:** Plug & play, reconocido como interfaz red
+- **Desventaja:** Ocupa USB, no funciona en ESP32
+- **Ejemplos:** Huawei E3372, ZTE MF823
 
-### Antena
-- ✅ **Usar antena externa** - Carcasa metálica bloquea señal
-- **Ganancia:** 3-5 dBi típico
-- **Tipo:** SMA o U.FL según módulo
-- **Ubicación:** Fuera de carcasa metálica
-
-### Consumo
-- ⚠️ **Picos de 2A** - Dimensionar fuente y baterías
-- ✅ Usar PSM (Power Saving Mode) cuando sea posible
-- ✅ Desconectar módulo si no se usa (relay o MOSFET)
+### Configuración:
+```bash
+# Automático en Raspberry Pi OS
+# NetworkManager gestiona dongle
+```
 
 ---
 
-## Disponibilidad (Chile)
-- **AliExpress:** $20-50, envío 4-6 semanas
-- **Amazon:** $30-60, envío 2-3 semanas
-- **MercadoLibre Chile:** $40-80, disponible local
+## Alternativa IoT: SIM7070G (Cat-M1/NB-IoT)
+
+### Ventajas:
+- ✅ Menor consumo (~500 mA max)
+- ✅ Diseñado para IoT
+- ✅ GPS integrado
+- ⚠️ Requiere cobertura Cat-M1/NB-IoT operador
+
+### Uso:
+- Telemetría baja frecuencia
+- Envíos cada 5-15 minutos
+- Ideal para batería
 
 ---
 
-**Última actualización:** Diciembre 2025
-**Recomendación principal:** **SIM7600SA-H** para proyectos en Chile con ESP32
+## Configuraciones y Costos
+
+| Config | Módulo | Plataforma | Costo HW | Costo Mensual | Complejidad |
+|--------|--------|------------|----------|---------------|-------------|
+| **MVP sin LTE** | - | ESP32 | $45 | $0 | ⭐ |
+| **ESP32 + LTE** | SIM7600 | ESP32 | $90-100 | $5-15 | ⭐⭐⭐⭐ |
+| **Linux + Dongle** | USB 4G | RPi/OPi | $80-100 | $5-15 | ⭐⭐ |
+| **IoT optimizado** | SIM7070G | ESP32 | $70-80 | $3-10 | ⭐⭐⭐ |
+
+---
+
+## Plan de Datos
+
+### Estimación consumo:
+- Por scan: ~2 KB (JSON + headers HTTP)
+- 1000 scans/mes: ~2 MB
+- Plan recomendado: 50-100 MB/mes
+
+### Operadores Chile:
+- Entel IoT: Desde $5/mes
+- Movistar M2M: Desde $8/mes
+- Claro: Planes prepago
+
+---
+
+## Recomendación Final
+
+### Para MVP:
+❌ **No incluir LTE** - Añade complejidad y costo innecesario
+➡️ Usar Wi-Fi, suficiente para prototipo
+
+### Para producción con movilidad:
+➡️ **USB 4G Dongle + RPi** (más simple)
+➡️ **SIM7070G + ESP32** (si optimización batería crítica)
+
+### Evitar:
+❌ SIM800L (2G obsoleto)
+❌ SIM7600 + ESP32 para MVP (muy complejo)
+
+### Escalabilidad:
+1. **Fase 1:** ESP32 + Wi-Fi ($45)
+2. **Fase 2:** +GPS si necesario ($60)
+3. **Fase 3:** +LTE si movilidad requerida ($90-100)

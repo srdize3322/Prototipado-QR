@@ -1,89 +1,123 @@
-# Prototipo módulo lector QR con Wi-Fi
+# Prototipado QR + Wi-Fi
 
-## Idea general
-Desarrollar un módulo físico base capaz de leer códigos QR y enviar el resultado a un servidor vía Wi-Fi.  
-El servidor procesa la información y responde si el QR es válido o no.  
-El dispositivo indica el resultado mediante LEDs.
+Sistema modular IoT para lectura de códigos QR y envío vía Wi-Fi, escalable a GPS/LTE.
 
-Este repositorio corresponde **exclusivamente a la etapa de prototipado** y análisis de opciones técnicas.
+## 🎯 Objetivo
 
-## Objetivo de esta etapa
-- Explorar distintas alternativas de hardware para el módulo
-- Comparar costos, complejidad y viabilidad
-- Definir una arquitectura base para un prototipo funcional
-- Guiar el trabajo del agente en la investigación y comparación
+**Módulo físico** que:
+1. Lee códigos QR → 2. Envía a servidor vía Wi-Fi → 3. Escalable (GPS, LTE, batería)
 
-No se busca aún una solución final ni industrial.
+---
 
-## Alcance del prototipo
-- Lectura de código QR
-- Conexión a red Wi-Fi existente
-- Envío de información al servidor (solicitud HTTP u otro mecanismo simple)
-- Recepción de respuesta del servidor
-- Indicador visual mediante LED (ej.: verde / rojo)
-- Alimentación por cable (no batería en esta etapa)
+## 📂 Estructura
 
-## Fuera de alcance (por ahora)
-- LTE / GPS
-- Batería
-- Diseño industrial
-- Seguridad avanzada
-- Escalabilidad masiva
-
-## Estructura del repositorio
-
-### 📁 `/propuestas/` - Módulos Base ("Cerebros")
-Contiene las opciones de **módulos base** que actúan como cerebro del sistema:
-- [ESP32-DevKit](propuestas/esp32-devkit.md) - $5-8, Wi-Fi integrado ⭐ **Recomendado**
-- [ESP32-S3](propuestas/esp32-s3.md) - $12-15, más potente
-- [Raspberry Pi Zero 2W](propuestas/raspberry-pi-zero-2w.md) - $30-40, Linux completo
-
-Cada módulo base incluye:
-- Especificaciones técnicas completas
-- Compatibilidad con módulos periféricos
-- Ejemplos de configuración
-- Pros y contras
-
-### 📁 `/modulos/` - Módulos Periféricos
-Catálogo de **componentes** que se conectan al módulo base:
-- [📷 Lectores QR](modulos/lector-qr.md) - Escáneres UART, cámaras, USB
-- [📡 Wi-Fi](modulos/wifi.md) - Conectividad inalámbrica (integrada)
-- [🛰️ GPS](modulos/gps.md) - Geolocalización GNSS
-- [📶 LTE/Celular](modulos/lte.md) - Conectividad móvil 4G
-- [💡 Indicadores LED](modulos/led-indicadores.md) - LEDs, RGB, pantallas
-
-Cada módulo incluye:
-- Modelos disponibles y precios
-- **Tabla de compatibilidad** con cada módulo base
-- Ejemplos de código
-- Recomendaciones de compra
-
-## Enfoque modular
-
-Este proyecto usa un **diseño modular** donde:
-1. Eliges un **módulo base** (cerebro) según tus necesidades
-2. Conectas **módulos periféricos** según funcionalidades requeridas
-3. Cada módulo especifica compatibilidad con los módulos base
-
-### Ejemplo de configuración
 ```
-Módulo Base: ESP32-DevKit ($8)
-  ├── Lector QR: Escáner UART ($35) 
-  ├── GPS: NEO-M8N ($15)
-  ├── Wi-Fi: Integrado
-  ├── Indicadores: LED RGB ($0.50)
-  └── (Futuro) LTE: SIM7600 ($35)
-  
-Total base: ~$58
-Con LTE futuro: ~$93
+propuestas/          # Módulos base ("cerebros")
+├── esp32-devkit.md         ⭐ Recomendado MVP
+├── esp32-s3.md             Avanzado/cámara
+├── orange-pi-zero2.md      Linux económico
+├── raspberry-pi-zero-2w.md Linux premium
+└── arduino-mkr-wifi-1010.md Batería integrada
+
+modulos/             # Periféricos
+├── lector-qr.md            Escáneres UART/USB
+├── comunicacion.md         HTTP REST / MQTT
+├── wifi.md                 (Integrado en base)
+├── gps.md                  Geolocalización
+├── lte.md                  Conectividad móvil
+└── led-indicadores.md      Estados visuales
 ```
 
-## Criterios generales
-- Componentes disponibles comercialmente
-- Idealmente comprables por AliExpress u otro marketplace similar
-- Costo total del prototipo preferiblemente bajo USD 150
-- Posibilidad de envío a Chile
-- Simplicidad de implementación
+---
 
-## Estado del proyecto
-Proyecto en fase de **investigación y prototipado**.
+## 💰 Configuraciones & Presupuesto
+
+| Config | Componentes | Costo | Uso |
+|--------|-------------|-------|-----|
+| **MVP Básico** | ESP32 + GM67 + LEDs | **$45** | ⭐ Recomendado inicio |
+| **MVP Premium** | ESP32 + DE2120 + LEDs | $80 | Mejor rango/velocidad |
+| **+GPS** | MVP + NEO-M8N | $60 | Geolocalización |
+| **+LTE Simple** | RPi Zero 2W + USB 4G | $100 | Celular fácil |
+| **+LTE Complejo** | ESP32 + SIM7600 | $95 | Celular optimizado |
+
+---
+
+## 🚀 Comenzar: MVP en 3 Pasos
+
+### 1. Hardware ($45 total)
+- [ESP32-DevKit](propuestas/esp32-devkit.md): $8
+- [GM67 QR UART](modulos/lector-qr.md): $30
+- [2 LEDs + resistencias](modulos/led-indicadores.md): $0.50
+- Cables dupont: $2
+- Fuente USB 5V/2A: $5
+
+### 2. Conexiones
+```
+GM67 → ESP32
+───────────────
+VCC  → 5V
+GND  → GND
+TX   → GPIO16 (RX2)
+RX   → GPIO17 (TX2)
+
+LEDs → ESP32
+───────────────
+Verde → GPIO25 → 220Ω → LED → GND
+Rojo  → GPIO26 → 220Ω → LED → GND
+```
+
+### 3. Código Base
+Ver [modulos/comunicacion.md](modulos/comunicacion.md) para endpoints HTTP y lógica LED
+
+---
+
+## 📊 Comparativa Rápida Plataformas
+
+| Plataforma | Precio | Complejidad | Expansión | Recomendación |
+|------------|--------|-------------|-----------|---------------|
+| **ESP32-DevKit** | $8 | ⭐ Fácil | ⭐⭐⭐ | **⭐ MVP** |
+| **ESP32-S3** | $15 | ⭐⭐ | ⭐⭐⭐ | Avanzado |
+| **Orange Pi Zero2** | $22 | ⭐⭐ | ⭐⭐ | Alt. Linux |
+| **RPi Zero 2W** | $40 | ⭐⭐ | ⭐⭐⭐ | Premium |
+| **Arduino MKR** | $45 | ⭐ | ⭐ | Solo si batería crítica |
+
+---
+
+## 🔧 Tecnologías
+
+- **HW:** ESP32, Raspberry Pi, GM67/DE2120 QR scanners
+- **SW:** Arduino C++, Python, PlatformIO
+- **Comunicación:** Wi-Fi 2.4/5GHz, HTTPS REST, MQTT
+- **Interfaces:** UART, I2C, SPI, GPIO
+
+---
+
+## 📖 Documentación Detallada
+
+- [Plataformas Base](propuestas/README.md) - Comparativa cerebros
+- [Módulos Periféricos](modulos/README.md) - QR, GPS, LTE, LEDs
+- [Protocolos Comunicación](modulos/comunicacion.md) - HTTP/MQTT + JSON
+
+---
+
+## ✅ Roadmap
+
+- [x] Investigación hardware
+- [x] Documentación módulos
+- [x] Matrices compatibilidad
+- [x] Protocolos comunicación
+- [ ] **Siguiente:** Prototipo físico MVP
+- [ ] Firmware ESP32 completo
+- [ ] Testing conectividad
+- [ ] Expansión GPS/LTE
+
+---
+
+## 🎯 Decisión Rápida
+
+**¿Presupuesto <$60?** → ESP32 + GM67  
+**¿Necesitas Linux?** → Orange Pi Zero2  
+**¿Máxima velocidad?** → ESP32 + DE2120  
+**¿Batería integrada crítica?** → Arduino MKR (⚠️ costoso)
+
+Ver archivos individuales para specs técnicas completas.

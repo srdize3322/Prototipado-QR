@@ -1,203 +1,102 @@
-# Raspberry Pi Zero 2 W - Módulo Base
+# Raspberry Pi Zero 2W - SBC Linux
 
-## Categoría
-**Computadora completa Linux (cerebro del sistema)**
+## Specs
+- **CPU:** Quad-core Cortex-A53 1 GHz (BCM2710A1) | **RAM:** 512 MB
+- **Wi-Fi:** 2.4/5 GHz dual-band integrado | **BT:** 4.2 BLE
+- **Interfaces:** 1 USB 2.0 (micro), 40-pin GPIO, UART, SPI, I2C
+- **Video:** Mini-HDMI, CSI camera connector
+- **Consumo:** ~500-600 mA activo (2.5-3W)
+- **OS:** Raspberry Pi OS, Ubuntu, Armbian
+- **Almacenamiento:** microSD (no integrado)
 
-## Descripción general
-Mini computadora con sistema operativo completo (Linux). Ofrece máxima flexibilidad de software a costa de mayor consumo y complejidad. Ideal cuando se requiere procesamiento pesado, múltiples servicios o lenguajes de alto nivel (Python, Node.js, etc.).
+## Compatibilidad Módulos
 
-## Especificaciones técnicas
+| Módulo | Compatible | Notas |
+|--------|-----------|-------|
+| **QR UART** | ✅ | UART GPIO + Python serial |
+| **QR USB** | ✅ | **Plug & play** via libusb/evdev |
+| **GPS UART/USB** | ✅ | gpsd daemon gestiona todo |
+| **LTE USB** | ✅ | **Dongle 4G mejor opción Linux** |
+| **LEDs/OLED** | ✅ | GPIO + Python libraries (gpiozero) |
+| **Batería** | ⚠️ | UPS HAT externo ($15-20) |
 
-### Procesador
-- **CPU:** Quad-core ARM Cortex-A53 64-bit
-- **Frecuencia:** 1 GHz
-- **RAM:** 512 MB LPDDR2
-- **Almacenamiento:** MicroSD (8-32 GB recomendado)
+## Expansión Futura
+- **USB Hub:** Requerido para múltiples USB (solo 1 puerto)
+- **GPIO:** 40 pines, bien documentado
+- **HATs:** Ecosistema grande (alimentación, sensores, displays)
+- **Software:** Linux completo = máxima flexibilidad
 
-### Conectividad integrada
-- ✅ **Wi-Fi:** 802.11 b/g/n (2.4 GHz)
-- ✅ **Bluetooth:** 4.2 BLE
+## Configuraciones Típicas
 
-### Interfaces disponibles
-- **GPIO:** 40 pines (header)
-- **USB:** 1x Micro USB OTG
-- **CSI:** Conector cámara
-- **UART, SPI, I2C:** Disponibles vía GPIO
-- **Mini HDMI:** Salida de video
+| Config | Componentes | Costo | Uso |
+|--------|-------------|-------|-----|
+| **UART Básico** | RPi + QR UART + SD 16GB | ~$70 | Python simple |
+| **USB Simple** | RPi + QR USB + Fuente 3A | ~$75 | Plug & play |
+| **+GPS USB** | Anterior + GPS USB | ~$90 | gpsd automático |
+| **+LTE Dongle** | Anterior + 4G USB + Hub | ~$120 | Celular managed |
 
-### Sistema Operativo
-- **Raspberry Pi OS** (Debian-based) - Recomendado
-- **Ubuntu Server**
-- **Otros Linux:** Alpine, Arch, etc.
+## Costo & Disponibilidad
+- **Placa:** $30-40 (⚠️ Disponibilidad variable)
+- **Fuente 5V/2.5A oficial:** $8-10
+- **SD 16GB:** $8-10
+- **Carcasa:** $5-8 (opcional)
+- **Total MVP:** ~$70-80
+- **Stock:** ⚠️ Moderado (escasez recurrente)
 
-### Alimentación
-- **Voltaje:** 5V vía Micro USB
-- **Consumo:** 
-  - Idle: ~100-150 mA
-  - Carga media: 200-300 mA
-  - Máximo: ~400 mA
-  - **Mucho mayor que ESP32** (~10x)
+## Pros/Contras
+✅ Linux completo | Dual-band Wi-Fi | USB dongles fáciles | Python/Node/Go | HAT ecosystem | GPIO 40 pines | Comunidad enorme
+⚠️ Mayor consumo que ESP32 (~5x) | Precio alto | Requiere SD | Boot lento (~20s) | Disponibilidad irregular
 
-## Plataformas de desarrollo
-- ✅ **Python** - Lenguaje principal
-- ✅ **Node.js / JavaScript**
-- ✅ **C/C++** - Con compilación nativa
-- ✅ **Go, Rust, etc.**
-- ✅ Cualquier lenguaje con soporte Linux ARM
+## vs ESP32
 
-## Compatibilidad con módulos
+| Aspecto | ESP32 | RPi Zero 2W |
+|---------|-------|-------------|
+| **Precio** | $8 | $30-40 |
+| **Consumo** | 160-260 mA | 500-600 mA |
+| **Boot** | <1s | ~20s |
+| **OS** | Firmware | Linux completo |
+| **USB** | Via bridge | Nativo |
+| **Flexibilidad SW** | C/Python | **Cualquier lenguaje** |
+| **GPIO** | 30+ | 40 |
 
-### 📡 Wi-Fi
-- ✅ **Integrado** - No requiere módulo externo
-- ✅ **Dongles USB Wi-Fi** - Para dual band o mejor alcance
+## Cuándo Usar RPi Zero 2W
 
-### 📷 Lector QR
-- ✅ **Cámara Pi oficial** ($15-25) → Conector CSI dedicado
-- ✅ **Cámaras USB** → Puerto USB (requiere hub powered)
-- ✅ **Escáner QR USB** → Puerto USB
-- ✅ **Escáner UART** → GPIO serial (menos común, ESP32 mejor para esto)
-- ✅ **Decodificación por software** - Python: OpenCV, zbar, pyzbar
+### ✅ Elegir RPi si:
+- Necesitas **múltiples procesos** simultáneos
+- **USB dongles** (4G, GPS) más simples que UART
+- Desarrollo en **Python/Node.js** preferido
+- Requieres **Linux tooling** completo (apt, systemd, etc.)
+- **Prototipado rápido** > optimización consumo
 
-### 🛰️ GPS
-- ✅ **Módulos GPS USB** → USB (ideal)
-- ✅ **Módulos GPS UART** → GPIO serial
-- ⚠️ **GPS via USB más común** en RPi que UART
+### ⚠️ Evitar RPi si:
+- Presupuesto <$60
+- Batería crítica (consumo alto)
+- MVP simple (ESP32 suficiente)
 
-### 📶 LTE/Celular
-- ✅ **Dongles USB 4G** (Huawei, ZTE, etc.) → USB
-- ✅ **Módulos HAT LTE** (Sixfox, Waveshare) → GPIO
-- ✅ **SIM7600 HAT** → USB o serial
-- ✅ **Mejor soporte que ESP32** para módems complejos
+## Configuración Python Típica
 
-### 💡 Indicadores LED
-- ✅ **LEDs individuales** → GPIO con resistencias
-- ✅ **Matrices LED, NeoPixels** → GPIO
-- ✅ **Pantallas HDMI** → Mini HDMI out
+### Lector QR USB:
+```python
+import evdev
 
-### 🔋 Batería
-- ⚠️ **Alto consumo** - Requiere batería grande (10,000+ mAh para uso prolongado)
-- ✅ **UPS HATs disponibles** - Con gestión inteligente
-- ⚠️ **No ideal para batería** comparado con ESP32
-
-### 🖥️ Pantallas
-- ✅ **Mini HDMI** → Cualquier pantalla/monitor
-- ✅ **Pantallas táctiles GPIO** (Waveshare, etc.)
-- ✅ **Pantallas USB** (via DisplayLink)
-- ✅ **OLED/LCD I2C** → GPIO
-
-## Costo aproximado
-
-| Item | Precio (USD) |
-|------|--------------|
-| Raspberry Pi Zero 2 W | 15-20 |
-| MicroSD 16GB | 5-8 |
-| Fuente 5V 2A | 5-8 |
-| Cable Micro USB | 2-3 |
-| Header GPIO (si no soldado) | 1-2 |
-
-**Costo base típico:** ~$30-40 (con accesorios básicos)
-
-## Ventajas como módulo base
-- ✅ **Sistema operativo completo** - Linux full
-- ✅ **Máxima flexibilidad software** - Cualquier lenguaje/framework
-- ✅ **Fácil desarrollo** - Python, SSH, debugging estándar
-- ✅ **Excelente para prototipado rápido** - Librerías maduras
-- ✅ **Procesa tareas complejas** - OpenCV, ML, bases de datos locales
-- ✅ **Mejor soporte USB** - Dongles 4G, cámaras USB, etc.
-- ✅ **Comunidad enorme** - Toneladas de tutoriales
-
-## Desventajas
-- ❌ **Alto consumo energético** (~10x ESP32) - No ideal para batería
-- ❌ **Boot time** - 20-40 segundos vs instantáneo en ESP32
-- ❌ **Costo mayor** - ~$30-40 vs ~$5-8 ESP32
-- ❌ **Más complejo** - Requiere SD, OS, updates, etc.
-- ❌ **Menos robusto** - SD puede corromperse, OS puede fallar
-- ❌ **Mayor tamaño físico**
-- ⚠️ **Overkill** para tareas simples
-
-## Cuándo usar Raspberry Pi vs ESP32
-
-### Usar Raspberry Pi si:
-- ✅ Necesitas procesamiento pesado (OpenCV, ML, OCR)
-- ✅ Requieres múltiples servicios concurrentes
-- ✅ Python/Node.js es crítico para desarrollo rápido
-- ✅ Decodificación QR por software (cámara simple)
-- ✅ Interfaz HDMI requerida
-- ✅ Dongles USB 4G/LTE
-- ✅ Base de datos local, logging complejo
-- ✅ Desarrollo iterativo rápido
-
-### Usar ESP32 si:
-- ✅ Prioridad es bajo consumo / batería
-- ✅ Boot instantáneo requerido
-- ✅ Costo es crítico
-- ✅ Tarea simple y definida
-- ✅ Robustez en ambientes difíciles
-- ✅ Tamaño compacto crítico
-
-## Ejemplos de configuración completa
-
-### Configuración 1: QR por cámara (económico)
-```
-Raspberry Pi Zero 2 W ($20)
-├── MicroSD 16GB ($6)
-├── Cámara USB básica ($10-15)
-├── LEDs → GPIO
-├── Fuente 5V 2A ($6)
-└── Software: Python + OpenCV + pyzbar
-
-Total: ~$42-47
-Ventaja: Decodifica QR por software, sin escáner dedicado
+device = evdev.InputDevice('/dev/input/event0')
+for event in device.read_loop():
+    if event.type == evdev.ecodes.EV_KEY:
+        print(f"QR: {event}")
 ```
 
-### Configuración 2: Sistema con 4G
-```
-Raspberry Pi Zero 2 W ($20)
-├── MicroSD 32GB ($8)
-├── Cámara Pi oficial ($20)
-├── Dongle USB 4G ($25-35)
-├── USB Hub powered ($8-12)
-├── GPS USB ($15-20)
-├── Fuente 5V 3A ($8)
-└── Batería 20,000mAh ($20-30)
+### HTTP POST:
+```python
+import requests
 
-Total: ~$124-153
-Ventaja: Sistema completo con 4G y GPS, Linux full
-⚠️ Excede presupuesto de $150
-```
+data = {
+    "device_id": "RPI-001",
+    "qr_value": "https://example.com/item/123"
+}
 
-### Configuración 3: Totem con pantalla
+response = requests.post("https://servidor.com/api/scan", json=data)
+print(response.json())
 ```
-Raspberry Pi Zero 2 W ($20)
-├── MicroSD 16GB ($6)
-├── Escáner QR USB ($30-40)
-├── Pantalla táctil 7" HDMI ($40-60)
-├── Fuente 5V 3A ($8)
-└── Carcasa ($10-15)
-
-Total: ~$114-149
-Ventaja: Interfaz visual completa, kiosco interactivo
-```
-
-## Disponibilidad
-- **MercadoLibre Chile:** Disponible, precio premium (+30-50%)
-- **Amazon:** Disponible, pero importación
-- **Tiendas especializadas:** Tiendas de robótica/electrónica
-- ⚠️ **Stock limitado** - Escasez global desde 2021
-- **Alternativa:** Buscar localmente antes de importar
 
 ## Recomendación
-⚠️ **Recomendado solo para casos específicos** - Si necesitas procesamiento pesado, Python/Linux, o decodificación QR por software económica. Para sistema modular simple, **ESP32 es mejor opción** (menor costo, consumo, complejidad). 
-
-**Para este proyecto QR+Wi-Fi básico: ESP32 es más apropiado** a menos que haya requisitos específicos de software complejo.
-
-## Productos comerciales similares
-- **Raspberry Pi 3/4** - Más caros pero más potentes
-- **Raspberry Pi Pico W** - Microcontrolador (similar a ESP32)
-- **Orange Pi Zero** - Alternativa más económica
-- **Banana Pi M2 Zero** - Similar a RPi Zero
-
-## Referencias
-- [Raspberry Pi Official](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/)
-- [Getting Started Guide](https://www.raspberrypi.com/documentation/)
-- [GPIO Pinout](https://pinout.xyz/)
+**Opción premium** cuando flexibilidad Linux justifica el costo extra. Ideal para prototipos que evolucionarán a aplicaciones complejas (web servers, databases, computer vision). Para MVP económico, ESP32 es mejor balance costo/capacidad.

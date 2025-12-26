@@ -1,53 +1,37 @@
-# Módulos Base - "Cerebros" del Sistema
+# Propuestas de Módulos Base ("Cerebros")
 
-Esta carpeta contiene las propuestas de **módulos base** o "cerebros" que coordinan todo el sistema.
+Comparativa de plataformas principales para el sistema QR+Wi-Fi:
 
-## ¿Qué es un módulo base?
+## Comparativa Rápida
 
-El módulo base es el **microcontrolador o computadora principal** que:
-- Ejecuta la lógica del programa
-- Se conecta a otros módulos (QR, GPS, LTE, etc.)
-- Maneja las comunicaciones (Wi-Fi, servidor)
-- Controla los indicadores (LEDs, pantallas)
+| Plataforma | Precio | RAM/CPU | Wi-Fi | Batería | GPIO/UART | Expansión | Recomendación |
+|------------|--------|---------|-------|---------|-----------|-----------|---------------|
+| **ESP32-DevKit** | $5-10 | 520KB/240MHz | 2.4GHz | Externo | 30+/3 | ⭐⭐⭐ | **⭐ TOP MVP** |
+| **ESP32-S3** | $12-15 | 512KB/240MHz | 2.4GHz | Externo | 45+/3 | ⭐⭐⭐ | Avanzado/cámara |
+| **Orange Pi Zero2** | $19-22 | 1GB/1.5GHz | 2.4+5GHz | UPS HAT | 26/1 | ⭐⭐ | Alt. Linux |
+| **Raspberry Pi Zero 2W** | $30-40 | 512MB/1GHz | 2.4+5GHz | Externo | 40/1 | ⭐⭐⭐ | Premium Linux |
+| **Arduino MKR 1010** | $38-45 | 32KB/48MHz | 2.4+5GHz | **Integrado** | 8/1 | ⭐ | Solo si batería crítica |
 
-## Módulos base disponibles
+## Criterios de Selección
 
-| Módulo | Tipo | Costo | Wi-Fi | Programación | Complejidad | Consumo |
-|--------|------|-------|-------|--------------|-------------|---------|
-| [ESP32-DevKit](esp32-devkit.md) | MCU | $5-8 | ✅ | Arduino/C++ | Baja | Bajo |
-| [ESP32-S3](esp32-s3.md) | MCU | $12-15 | ✅ | Arduino/C++ | Baja | Bajo |
-| [Raspberry Pi Zero 2W](raspberry-pi-zero-2w.md) | SBC Linux | $30-40 | ✅ | Python/Node/etc | Media | Alto |
+### Para MVP (<$60 total):
+➡️ **ESP32-DevKit** - Máximo valor, fácil expansión
 
----
+### Si necesitas Linux:
+➡️ **Orange Pi Zero2** (disponibilidad/precio) o **RPi Zero 2W** (soporte/comunidad)
 
-## Comparativa rápida
+### Si expansión compleja futura (LTE+GPS+Cámara):
+➡️ **ESP32-S3** - Más GPIO y potencia, compatible ESP32
 
-### ESP32-DevKit ⭐ **Recomendado para mayoría de casos**
-- ✅ Precio más bajo ($5-8)
-- ✅ Wi-Fi integrado
-- ✅ Fácil programación (Arduino)
-- ✅ Bajo consumo (~100-200 mA)
-- ✅ Boot instantáneo
-- ✅ Compatible con todos los módulos UART/I2C/SPI
-- ⚠️ Solo 3.3V lógica (algunos módulos necesitan level shifter)
+### Si batería integrada es crítica:
+➡️ **Arduino MKR** - Único con cargador, pero costoso y limitado
 
-**Usar si:** Proyecto simple a medio, prioridad costo y consumo
-
-### ESP32-S3 ⭐ **Para casos avanzados**
-- ✅ Más potente que ESP32 estándar
-- ✅ USB nativo (debugging fácil)
-- ✅ Mejor para procesamiento imagen (si usas cámara)
-- ✅ Más RAM
-- ⚠️ Precio ~50% mayor que ESP32 estándar
-
-**Usar si:** Necesitas procesar imagen/video, interfaz rica, o más potencia
-
-### Raspberry Pi Zero 2 W ⚠️ **Solo casos específicos**
-- ✅ Linux completo
-- ✅ Máxima flexibilidad software (Python, Node.js, etc.)
-- ✅ Excelente para prototipado rápido
-- ✅ Mejor soporte USB (dongles 4G, etc.)
-- ❌ Alto consumo (~10x ESP32)
+## Archivos Detallados
+- [ESP32-DevKit](esp32-devkit.md) - ⭐ Recomendado MVP
+- [ESP32-S3](esp32-s3.md) - Avanzado
+- [Orange Pi Zero2](orange-pi-zero2.md) - Linux económico
+- [Raspberry Pi Zero 2W](raspberry-pi-zero-2w.md) - Linux premium
+- [Arduino MKR WiFi 1010](arduino-mkr-wifi-1010.md) - Batería integrada
 - ❌ Boot lento (20-40 seg)
 - ❌ Costo mayor
 - ❌ Más complejo (SD, OS, etc.)
