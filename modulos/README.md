@@ -30,23 +30,6 @@ Componentes que expanden las capacidades del módulo base.
 
 ---
 
-## Escalado por Fases
-
-### Fase 1 - MVP ($45-55):
-- ESP32-DevKit
-- GM67 Lector QR UART
-- 2 LEDs indicadores
-- Wi-Fi integrado
-
-### Fase 2 - +Geolocalización ($60-70):
-- Anterior + NEO-M8N GPS
-
-### Fase 3 - +Conectividad Móvil ($90-110):
-- Anterior + SIM7600 LTE (complejo)
-- **O migrar a:** RPi + USB 4G dongle (más simple)
-
----
-
 ## Prioridad Implementación
 
 1. **Esenciales MVP:** Lector QR + Wi-Fi + LEDs + Protocolo HTTP
