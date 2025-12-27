@@ -73,30 +73,12 @@
 - Batería crítica (consumo alto)
 - MVP simple (ESP32 suficiente)
 
-## Configuración Python Típica
+## Librerías Python Típicas
 
-### Lector QR USB:
-```python
-import evdev
-
-device = evdev.InputDevice('/dev/input/event0')
-for event in device.read_loop():
-    if event.type == evdev.ecodes.EV_KEY:
-        print(f"QR: {event}")
-```
-
-### HTTP POST:
-```python
-import requests
-
-data = {
-    "device_id": "RPI-001",
-    "qr_value": "https://example.com/item/123"
-}
-
-response = requests.post("https://servidor.com/api/scan", json=data)
-print(response.json())
-```
+- **QR USB:** `evdev` para lectura directa desde dispositivo input
+- **HTTP:** `requests` para POST al servidor
+- **GPIO:** `gpiozero` para control LEDs/sensores
+- **GPS:** `gpsd-py3` para integración gpsd daemon
 
 ## Recomendación
 **Opción premium** cuando flexibilidad Linux justifica el costo extra. Ideal para prototipos que evolucionarán a aplicaciones complejas (web servers, databases, computer vision). Para MVP económico, ESP32 es mejor balance costo/capacidad.

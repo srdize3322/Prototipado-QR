@@ -29,12 +29,6 @@
 | RPi Zero 2W | ✅ UART GPIO/USB | USB plug & play |
 | Arduino MKR | ⚠️ UART único | Conflicto con debug |
 
-**Configuración ESP32:**
-```cpp
-HardwareSerial QRSerial(2); // UART2
-QRSerial.begin(9600, SERIAL_8N1, 16, 17); // RX=16, TX=17
-```
-
 ---
 
 ### DYScan DE2120 - Premium

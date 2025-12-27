@@ -69,24 +69,7 @@ RXD          → GPIO2 (TX software serial)
 PWRKEY       → GPIO5 (control encendido)
 ```
 
-### Código básico:
-```cpp
-#include <SoftwareSerial.h>
-
-SoftwareSerial sim7600(4, 2); // RX, TX
-
-void setup() {
-  sim7600.begin(115200);
-  
-  // Enviar HTTP POST
-  sim7600.println("AT+HTTPINIT");
-  sim7600.println("AT+HTTPPARA=\"URL\",\"https://servidor.com/api/scan\"");
-  sim7600.println("AT+HTTPDATA=200,10000"); // 200 bytes, 10s timeout
-  delay(100);
-  sim7600.println("{\"device_id\":\"ESP32-001\"}");
-  sim7600.println("AT+HTTPACTION=1"); // POST
-}
-```
+**Control:** Usar comandos AT para iniciar conexión HTTP y enviar datos JSON.
 
 ---
 
@@ -97,12 +80,7 @@ void setup() {
 - **Ventaja:** Plug & play, reconocido como interfaz red
 - **Desventaja:** Ocupa USB, no funciona en ESP32
 - **Ejemplos:** Huawei E3372, ZTE MF823
-
-### Configuración:
-```bash
-# Automático en Raspberry Pi OS
-# NetworkManager gestiona dongle
-```
+- **Configuración:** Automático en Raspberry Pi OS/NetworkManager
 
 ---
 

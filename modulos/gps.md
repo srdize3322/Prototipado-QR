@@ -30,29 +30,6 @@
 | RPi Zero 2W | ✅ UART GPIO/USB | gpsd daemon |
 | Arduino MKR | ⚠️ Software Serial | Limitado |
 
-**Configuración ESP32:**
-```cpp
-#include <TinyGPS++.h>
-
-TinyGPSPlus gps;
-HardwareSerial GPSSerial(1); // UART1
-
-void setup() {
-  GPSSerial.begin(9600, SERIAL_8N1, 32, 33); // RX=32, TX=33
-}
-
-void loop() {
-  while (GPSSerial.available()) {
-    gps.encode(GPSSerial.read());
-  }
-  
-  if (gps.location.isValid()) {
-    float lat = gps.location.lat();
-    float lng = gps.location.lng();
-  }
-}
-```
-
 ---
 
 ### NEO-M8N (Mejor)
@@ -110,18 +87,7 @@ void loop() {
 
 ## Integración con Sistema
 
-### JSON con GPS:
-```json
-{
-  "device_id": "ESP32-ABC123",
-  "timestamp": "2024-01-15T10:30:45Z",
-  "qr_value": "https://example.com/item/456",
-  "latitude": -33.4489,
-  "longitude": -70.6693,
-  "gps_accuracy": 2.5,
-  "satellites": 8
-}
-```
+**Campos adicionales a enviar:** Incluir `latitude`, `longitude`, `gps_accuracy` y número de `satellites` en el payload JSON del endpoint /scan.
 
 ---
 

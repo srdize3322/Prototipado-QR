@@ -31,60 +31,6 @@ LED Rojo:
   GPIO26 → Resistencia 220Ω → LED (+) → GND
 ```
 
-### Código ESP32:
-```cpp
-#define LED_GREEN 25
-#define LED_RED 26
-
-void setup() {
-  pinMode(LED_GREEN, OUTPUT);
-  pinMode(LED_RED, OUTPUT);
-}
-
-// Estado: BOOT
-void indicarBoot() {
-  for(int i=0; i<3; i++) {
-    digitalWrite(LED_GREEN, HIGH);
-    delay(200);
-    digitalWrite(LED_GREEN, LOW);
-    delay(200);
-  }
-}
-
-// Estado: WiFi OK
-void indicarWiFiOK() {
-  digitalWrite(LED_GREEN, HIGH);
-  digitalWrite(LED_RED, LOW);
-}
-
-// Estado: QR Leído
-void indicarQROK() {
-  for(int i=0; i<2; i++) {
-    digitalWrite(LED_GREEN, HIGH);
-    delay(100);
-    digitalWrite(LED_GREEN, LOW);
-    delay(100);
-  }
-}
-
-// Estado: Error Servidor
-void indicarErrorServidor() {
-  digitalWrite(LED_GREEN, LOW);
-  for(int i=0; i<3; i++) {
-    digitalWrite(LED_RED, HIGH);
-    delay(200);
-    digitalWrite(LED_RED, LOW);
-    delay(200);
-  }
-}
-
-// Estado: Sin WiFi
-void indicarSinWiFi() {
-  digitalWrite(LED_GREEN, LOW);
-  digitalWrite(LED_RED, HIGH);
-}
-```
-
 ---
 
 ## Opción 2: LED RGB (WS2812/NeoPixel)
@@ -94,34 +40,7 @@ void indicarSinWiFi() {
 - **Control:** 1 pin GPIO (protocolo serial)
 - **Colores:** 16 millones (RGB)
 - **Ventaja:** Múltiples colores, 1 solo pin
-
-### Ejemplo:
-```cpp
-#include <Adafruit_NeoPixel.h>
-
-#define PIN_NEOPIXEL 27
-#define NUM_PIXELS 1
-
-Adafruit_NeoPixel pixel(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB);
-
-void setup() {
-  pixel.begin();
-}
-
-void setColor(uint8_t r, uint8_t g, uint8_t b) {
-  pixel.setPixelColor(0, pixel.Color(r, g, b));
-  pixel.show();
-}
-
-// Verde = WiFi OK
-setColor(0, 255, 0);
-
-// Rojo = Error
-setColor(255, 0, 0);
-
-// Azul = Procesando
-setColor(0, 0, 255);
-```
+- **Librería:** Adafruit_NeoPixel
 
 ---
 
@@ -132,26 +51,7 @@ setColor(0, 0, 255);
 - **Resolución:** 128x64
 - **Interface:** I2C (SDA=21, SCL=22)
 - **Ventaja:** Texto, íconos, progreso
-
-### Uso:
-```cpp
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-
-Adafruit_SSD1306 display(128, 64, &Wire, -1);
-
-void setup() {
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 0);
-  display.println("WiFi: Conectado");
-  display.println("QR: Listo");
-  display.display();
-}
-```
+- **Librería:** Adafruit_SSD1306
 
 ---
 
@@ -170,15 +70,7 @@ void setup() {
 ### Buzzer Pasivo
 - **Precio:** $0.30-0.80
 - **Conexión:** GPIO → Buzzer → GND
-- **Uso:** Beep confirmación QR leído
-
-```cpp
-#define BUZZER_PIN 27
-
-void beepOK() {
-  tone(BUZZER_PIN, 1000, 100); // 1kHz, 100ms
-}
-```
+- **Uso:** Beep confirmación QR leído (tone() function)
 
 ---
 

@@ -20,29 +20,6 @@ No se requiere módulo externo para MVP.
 
 ---
 
-## Configuración Típica (ESP32)
-
-### Conexión básica:
-```cpp
-#include <WiFi.h>
-
-const char* ssid = "TuRed";
-const char* password = "TuPassword";
-
-void setup() {
-  WiFi.begin(ssid, password);
-  
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-  }
-  
-  Serial.println("WiFi conectado");
-  Serial.println(WiFi.localIP());
-}
-```
-
----
-
 ## Consideraciones
 
 ### Alcance:
