@@ -1,110 +1,80 @@
-# Lectores QR - Módulos Periféricos
+# Lectores QR
 
-## Tecnologías Disponibles
+## Tipos Disponibles
 
-| Tipo | Precio | Interface | Latencia | Pros/Contras |
-|------|--------|-----------|----------|--------------|
-| **UART 2D** | $28-66 | UART/USB | ~100ms | ✅ Rápido, dedicated ⚠️ Rígido posicionamiento |
-| **Cámara + CV** | $8-20 | CSI/USB | ~500ms-2s | ✅ Flexible, económico ⚠️ Lento, requiere procesamiento |
+| Tipo | Precio | Interface | Velocidad | Recomendación |
+|------|--------|-----------|-----------|---------------|
+| **UART Dedicado** | $28-66 | UART/USB | ~100ms | ⭐ MVP |
+| **Cámara + OpenCV** | $8-20 | CSI/USB | ~1-2s | Futuro |
 
 ---
 
-## Opción 1: Escáneres UART Dedicados (Recomendado MVP)
+## Opción 1: Escáneres UART - ⭐ Recomendado
 
-### GM67/GM65 - **TOP CHOICE**
-- **Precio:** $28-30 (AliExpress)
-- **Interface:** UART (9600-115200 baud) o USB
-- **Lectura:** 1D + 2D (QR, DataMatrix, PDF417, etc.)
-- **Rango:** 5-30 cm (según código)
-- **Voltaje:** 3.3-5V
-- **Consumo:** ~100 mA activo, <5 mA sleep
-- **Trigger:** Auto-sense, botón, serial command
-- **Salida:** ASCII directo por UART
+### GM67/GM65 - TOP CHOICE
+- **Precio:** $28-30
+- **Interface:** UART (9600-115200) o USB
+- **Códigos:** 1D + 2D (QR, DataMatrix, PDF417)
+- **Rango:** 5-30 cm
+- **Consumo:** ~100 mA activo
+- **Salida:** ASCII directo
 
 **Compatibilidad:**
-| Plataforma | Conexión | Notas |
-|------------|----------|-------|
-| ESP32 | ✅ UART2 directo | 3.3V compatible |
-| Orange Pi | ✅ UART GPIO | Python serial |
-| RPi Zero 2W | ✅ UART GPIO/USB | USB plug & play |
-| Arduino MKR | ⚠️ UART único | Conflicto con debug |
+- ESP32: ✅ UART2 directo (RX=16, TX=17)
+- RPi/OPi: ✅ USB plug & play
+- Arduino MKR: ⚠️ UART único
+
+**Cableado ESP32:**
+```
+GM67 → ESP32
+VCC → 5V | GND → GND | TX → GPIO16 | RX → GPIO17
+```
 
 ---
 
 ### DYScan DE2120 - Premium
-- **Precio:** ~$66 (Amazon)
-- **Interface:** USB/UART
-- **Lectura:** 1D + 2D ultra-rápido (<50ms)
-- **Rango:** 3-40 cm
-- **Ventajas:** Mayor rango, más robusto
-- **Desventaja:** 2x precio de GM67
-
-**Usar si:** Presupuesto permite y necesitas velocidad/distancia
+- **Precio:** $66
+- **Velocidad:** <50ms (ultra-rápido)
+- **Rango:** 3-40 cm (mejor que GM67)
+- **Usar si:** Presupuesto permite
 
 ---
 
-### M5Stack QR Code Module 13.2
+### M5Stack QR Module
 - **Precio:** $19.95
-- **Interface:** I2C (dirección 0x21)
-- **Resolución:** 640x480
-- **Ventaja:** Ecosistema M5Stack
-- **Desventaja:** Solo compatible con M5Stack/ESP32, menor rango
+- **Interface:** I2C
+- **Ecosistema:** M5Stack/ESP32
+- **Limitación:** Menor rango
 
 ---
 
-## Opción 2: Cámara + OpenCV (Escalado Futuro)
+## Opción 2: Cámara - Futuro
 
 ### ESP32-CAM
 - **Precio:** $8-12
-- **Procesamiento:** ZBar/OpenCV local (lento ~1-2s)
-- **Ventaja:** Muy económico, puede capturar imagen
-- **Desventaja:** Requiere iluminación buena, lento
+- **Velocidad:** ~1-2s (lento)
+- **Requiere:** Buena iluminación
 
-### Raspberry Pi Camera Module
+### RPi Camera
 - **Precio:** $15-25
-- **Procesamiento:** Python OpenCV (~500ms)
-- **Ventaja:** Flexible, puede hacer visión adicional
-- **Requiere:** RPi/Orange Pi (no ESP32)
+- **Velocidad:** ~500ms
+- **Ventaja:** Flexible
 
 ---
 
-## Comparativa de Configuraciones
+## Comparativa
 
-| Config | Lector | Plataforma | Costo Total | Velocidad | Dificultad |
-|--------|--------|------------|-------------|-----------|------------|
-| **MVP Básico** | GM67 | ESP32 | ~$45 | ⚡⚡⚡ | ⭐ Fácil |
-| **MVP Premium** | DE2120 | ESP32 | ~$80 | ⚡⚡⚡ | ⭐ Fácil |
-| **Linux Simple** | GM67 USB | RPi Zero 2W | ~$70 | ⚡⚡⚡ | ⭐⭐ Media |
-| **Económico Lento** | ESP32-CAM | ESP32 | ~$18 | ⚡ Lento | ⭐⭐⭐ Difícil |
-
----
-
-## Recomendación Final
-
-### Para MVP inmediato:
-➡️ **GM67 ($28-30)** + **ESP32-DevKit ($8)**
-- Total: ~$45
-- Configuración: 30 minutos
-- Velocidad: <100ms lectura
-- Escalable: Añadir GPS/LTE después
-
-### Si presupuesto permite:
-➡️ **DYScan DE2120** para mejor rango/robustez
-
-### Evitar para MVP:
-❌ Cámara + OpenCV - Lento, complejo, requiere iluminación controlada
+| Config | Lector | Plataforma | Costo | Velocidad |
+|--------|--------|------------|-------|-----------|
+| **MVP Básico** | GM67 | ESP32 | $45 | ⚡⚡⚡ |
+| **MVP Premium** | DE2120 | ESP32 | $80 | ⚡⚡⚡ |
+| **Linux** | GM67 USB | RPi | $60 | ⚡⚡⚡ |
 
 ---
 
-## Cableado Típico (GM67 + ESP32)
+## Recomendación
 
-```
-GM67          ESP32
-─────────────────────
-VCC (rojo)  → 5V
-GND (negro) → GND
-TXD (verde) → GPIO16 (RX2)
-RXD (azul)  → GPIO17 (TX2)
-```
-
-**Nota:** Si GM67 es 5V TX, usar divisor de voltaje 5V→3.3V en RX del ESP32.
+➡️ **GM67 ($28-30)** + plataforma elegida  
+- Mejor balance precio/rendimiento
+- Compatible con todas las plataformas
+- Velocidad suficiente (<100ms)

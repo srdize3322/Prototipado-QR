@@ -1,51 +1,57 @@
-# Raspberry Pi Zero 2W - SBC Linux
+# 🥇 Raspberry Pi Zero 2W - **TOP CHOICE**
 
-## Specs
-- **CPU:** Quad-core Cortex-A53 1 GHz (BCM2710A1) | **RAM:** 512 MB
-- **Wi-Fi:** 2.4/5 GHz dual-band integrado | **BT:** 4.2 BLE
-- **Interfaces:** 1 USB 2.0 (micro), 40-pin GPIO, UART, SPI, I2C
-- **Video:** Mini-HDMI, CSI camera connector
-- **Consumo:** ~500-600 mA activo (2.5-3W)
-- **OS:** Raspberry Pi OS, Ubuntu, Armbian
-- **Almacenamiento:** microSD (no integrado)
+## Specs Clave
+- **SoC:** Quad-core ARM Cortex-A53 @ 1GHz
+- **RAM:** 512MB
+- **Wi-Fi:** 2.4GHz b/g/n (5GHz NO)
+- **GPIO:** 40 pines
+- **USB:** 1× Micro USB OTG (⭐ USB Host)
+- **Precio:** **$20** + SD ($10) = **$30 total**
+- **Consumo:** ~300-500mA (1.5-2.5W)
 
-## Compatibilidad Módulos
+---
 
-| Módulo | Compatible | Notas |
-|--------|-----------|-------|
-| **QR UART** | ✅ | UART GPIO + Python serial |
-| **QR USB** | ✅ | **Plug & play** via libusb/evdev |
-| **GPS UART/USB** | ✅ | gpsd daemon gestiona todo |
-| **LTE USB** | ✅ | **Dongle 4G mejor opción Linux** |
-| **LEDs/OLED** | ✅ | GPIO + Python libraries (gpiozero) |
-| **Batería** | ⚠️ | UPS HAT externo ($15-20) |
+## Por Qué es #1
 
-## Expansión Futura
-- **USB Hub:** Requerido para múltiples USB (solo 1 puerto)
-- **GPIO:** 40 pines, bien documentado
-- **HATs:** Ecosistema grande (alimentación, sensores, displays)
-- **Software:** Linux completo = máxima flexibilidad
+✅ **USB Host:** Conecta múltiples periféricos (QR + LTE + GPS USB)  
+✅ **Sin límites UART:** No hay conflictos de pines  
+✅ **Linux completo:** Python, Node.js, drivers disponibles  
+✅ **Precio:** $20 (más barato que pensábamos)  
+✅ **Desarrollo rápido:** SSH, apt, npm, pip
 
-## Configuraciones Típicas
+---
 
-| Config | Componentes | Costo | Uso |
-|--------|-------------|-------|-----|
-| **UART Básico** | RPi + QR UART + SD 16GB | ~$70 | Python simple |
-| **USB Simple** | RPi + QR USB + Fuente 3A | ~$75 | Plug & play |
-| **+GPS USB** | Anterior + GPS USB | ~$90 | gpsd automático |
-| **+LTE Dongle** | Anterior + 4G USB + Hub | ~$120 | Celular managed |
+## Limitaciones
 
-## Costo & Disponibilidad
-- **Placa:** **$20** (✅ Precio real encontrado)
-- **Fuente 5V/2.5A oficial:** $8-10
-- **SD 16GB:** $8-10
-- **Carcasa:** $5-8 (opcional)
-- **Total MVP:** ~$60-70
-- **Stock:** ⚠️ Moderado (escasez recurrente)
+⚠️ **Wi-Fi:** Solo 2.4GHz (suficiente para IoT)  
+⚠️ **Consumo:** Mayor que ESP32 (~2W vs 0.5W)  
+⚠️ **Boot:** 20-40s (vs 2s ESP32)  
 
-## Pros/Contras
-✅ Linux completo | Dual-band Wi-Fi | USB dongles fáciles | Python/Node/Go | HAT ecosystem | GPIO 40 pines | Comunidad enorme
-⚠️ Mayor consumo que ESP32 (~5x) | Precio alto | Requiere SD | Boot lento (~20s) | Disponibilidad irregular
+---
+
+## Configuración con Módulos
+
+| Módulos | Conexión | Costo Total |
+|---------|----------|-------------|
+| **QR USB** | USB | $50 |
+| **QR + GPS USB** | Hub USB | $75 |
+| **QR + LTE** | Hub USB | $80 |
+
+---
+
+## Cuándo Usar
+
+✅ Necesitas 2+ periféricos USB  
+✅ Lógica compleja (base de datos local, caching)  
+✅ Desarrollo rápido (prototipo)
+
+---
+
+## Cuándo NO Usar
+
+❌ Consumo crítico (batería)  
+❌ Presupuesto mínimo ($20 vs $8 ESP32)  
+❌ Boot rápido requerido
 
 ## vs ESP32
 
