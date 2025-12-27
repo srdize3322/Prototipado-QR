@@ -15,12 +15,6 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 - ✅ Configuración Wi-Fi simple (captive portal)
 - ✅ Escalable: GPS y LTE opcionales
 
-**Aplicaciones:**
-- Control de acceso en eventos
-- Registro de asistencia
-- Tracking de productos/equipaje
-- Validación de tickets
-
 ---
 
 ## 📅 Plan de Implementación por Fases
