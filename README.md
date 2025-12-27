@@ -1,162 +1,115 @@
 # Prototipado QR + Wi-Fi
 
-Sistema modular IoT para lectura de códigos QR y envío vía Wi-Fi, escalable a GPS/LTE.
+Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
-## 🎯 Objetivo
+---
 
-**Módulo físico** que:
-1. Lee códigos QR → 2. Envía a servidor vía Wi-Fi → 3. Escalable (GPS, LTE, batería)
+## 🎯 Recomendación Final
+
+### 🥇 Raspberry Pi Zero 2W - **PRIMERA OPCIÓN**
+- **Precio:** $20 | **MVP completo:** $60-130
+- **Por qué:** USB host real, múltiples periféricos sin conflicto, Linux robusto
+- **Cuándo:** Producción, escalabilidad, QR + LTE + GPS
+
+### 🥈 ESP32-DevKit - **SEGUNDA OPCIÓN**  
+- **Precio:** $8 | **MVP simple:** $45
+- **Por qué:** Económico, suficiente para caso básico
+- **Cuándo:** Solo QR + Wi-Fi, sin expansión futura
+
+**Diferencia clave:** +$15-30 elimina riesgo técnico de múltiples periféricos.
+
+---
+
+## 📶 Configuración Wi-Fi Inicial
+
+**Todos los dispositivos** pueden crear red Wi-Fi propia para configuración:
+
+1. Primera vez → crea red "QR-Setup-XXX"
+2. Usuario conecta con teléfono
+3. Portal web para ingresar Wi-Fi y contraseña
+4. Dispositivo guarda y se reconecta
+5. Listo para usar
+
+✅ **Trivial en RPi y ESP32** - No es factor diferenciador.
+
+---
+
+## 💰 Costos por Configuración
+
+| Config | Plataforma | Precio | Uso |
+|--------|------------|--------|-----|
+| **Simple** | ESP32 + QR UART | $45 | QR + Wi-Fi básico |
+| **Completo** | RPi + QR USB | $60 | Multi-periférico base |
+| **+GPS** | RPi + GPS USB | $75 | Geolocalización |
+| **+LTE** | RPi + LTE USB | $110 | Conectividad celular |
+| **Todo** | RPi + QR + GPS + LTE | $130 | Sistema completo |
 
 ---
 
 ## 📂 Estructura
 
 ```
-propuestas/          # Módulos base ("cerebros")
-├── esp32-devkit.md         ⭐ Recomendado MVP
-├── esp32-s3.md             Avanzado/cámara
-├── orange-pi-zero2.md      Linux económico
-├── raspberry-pi-zero-2w.md Linux premium
-└── arduino-mkr-wifi-1010.md Batería integrada
+propuestas/          # Módulos base
+├── raspberry-pi-zero-2w.md  🥇 Recomendado
+├── esp32-devkit.md          🥈 Alternativa
+├── orange-pi-zero2.md
+├── esp32-s3.md
+└── arduino-mkr-wifi-1010.md
 
 modulos/             # Periféricos
-├── lector-qr.md            Escáneres UART/USB
+├── lector-qr.md            GM67/DE2120 (UART/USB)
 ├── comunicacion.md         HTTP REST / MQTT
-├── wifi.md                 (Integrado en base)
-├── gps.md                  Geolocalización
-├── lte.md                  Conectividad móvil
+├── gps.md                  NEO-6M/M8N
+├── lte.md                  SIM7600/USB dongles
 └── led-indicadores.md      Estados visuales
 ```
 
 ---
 
-## 💰 Configuraciones & Presupuesto
+## 🚀 Comenzar Rápido
 
-| Config | Componentes | Costo | Uso |
-|--------|-------------|-------|-----|
-| **MVP Simple** | ESP32 + GM67 + LEDs | **$45** | Solo QR + Wi-Fi |
-| **MVP Completo** | RPi Zero 2W + QR USB + LEDs | **$60** | ⭐ Multi-periférico |
-| **+GPS** | RPi + GPS USB | $75 | Geolocalización |
-| **+LTE** | RPi + LTE USB + Hub | $110 | Conectividad celular |
-| **Todo integrado** | RPi + QR + GPS + LTE | $130 | Sistema completo |
+### Opción A: Producción (Recomendado)
+- Raspberry Pi Zero 2W: $20
+- QR USB: $30
+- SD + fuente: $15
+- **Total: $65** → Escalable a GPS/LTE después
 
----
-
-## 🚀 Comenzar: Dos Rutas MVP
-
-### Ruta A: Simple (Solo QR + Wi-Fi) - $45
-
-**Hardware:**
-- [ESP32-DevKit](propuestas/esp32-devkit.md): $8
-- [GM67 QR UART](modulos/lector-qr.md): $30
-- [2 LEDs + resistencias](modulos/led-indicadores.md): $0.50
-- Cables dupont: $2
-- Fuente USB 5V/2A: $5
-
-**Conexiones:**
-```
-GM67 → ESP32
-───────────────
-VCC  → 5V
-GND  → GND
-TX   → GPIO16 (RX2)
-RX   → GPIO17 (TX2)
-```
+### Opción B: Prueba Económica
+- ESP32-DevKit: $8
+- QR UART: $30
+- LEDs: $2
+- **Total: $40** → Solo QR + Wi-Fi
 
 ---
 
-### Ruta B: Completo (QR + LTE + GPS) - $60-130 ⭐ Recomendado
+## 📋 Decisión por Caso
 
-**Hardware:**
-- [Raspberry Pi Zero 2W](propuestas/raspberry-pi-zero-2w.md): $20
-- [GM67 QR USB](modulos/lector-qr.md): $30
-- SD 16GB + Fuente: $15
-- LEDs: $0.50
-- GPS USB (opcional): $15
-- LTE USB (opcional): $45
-
-**Ventajas:**
-- ✅ USB host real - plug & play
-- ✅ Múltiples periféricos sin conflicto
-- ✅ Linux completo - debugging fácil
-- ✅ Escalable sin reescribir código
-
-**Ver:** [propuestas/README.md](propuestas/README.md) para análisis técnico detallado
+| Tu Necesidad | Usa | Por Qué |
+|--------------|-----|---------|
+| **Producción** | RPi Zero 2W | Robusto, escalable |
+| **QR + LTE + GPS** | RPi Zero 2W | Única práctica |
+| **Solo prueba QR** | ESP32 | Económico |
+| **Presupuesto <$50** | ESP32 | Mínimo viable |
 
 ---
 
-## 📊 Comparativa Rápida Plataformas
+## 📖 Documentación
 
-| Plataforma | Precio | Complejidad | Expansión | Recomendación |
-|------------|--------|-------------|-----------|---------------|
-| **ESP32-DevKit** | $8 | ⭐ Fácil | ⭐⭐ | QR+Wi-Fi solo |
-| **ESP32-S3** | $15 | ⭐⭐ | ⭐⭐ | Versión lite |
-| **Orange Pi Zero2** | $19 | ⭐⭐ | ⭐⭐⭐ | Linux económico |
-| **RPi Zero 2W** | **$20** | ⭐⭐ | ⭐⭐⭐ | **⭐ MVP multi-periférico** |
-| **Arduino MKR** | $45 | ⭐ | ⭐ | Solo batería integrada |
+- [propuestas/README.md](propuestas/README.md) - Análisis técnico completo
+- [modulos/README.md](modulos/README.md) - Periféricos y compatibilidad
 
 ---
 
-## 🔧 Tecnologías
+## ⚠️ Nota Importante
 
-- **HW:** ESP32, Raspberry Pi, GM67/DE2120 QR scanners
-- **SW:** Arduino C++, Python, PlatformIO
-- **Comunicación:** Wi-Fi 2.4/5GHz, HTTPS REST, MQTT
-- **Interfaces:** UART, I2C, SPI, GPIO
-
----
-
-## 📖 Documentación Detallada
-
-- [Plataformas Base](propuestas/README.md) - Comparativa cerebros + análisis técnico
-- [Módulos Periféricos](modulos/README.md) - QR, GPS, LTE, LEDs
-- [Protocolos Comunicación](modulos/comunicacion.md) - HTTP/MQTT + JSON
-
----
-
-## 🎯 Decisión por Caso de Uso
-
-| Tu Necesidad | Plataforma Recomendada | Costo | Por Qué |
-|--------------|------------------------|-------|---------|
-| **QR + Wi-Fi básico** | ESP32-DevKit | $45 | Económico, suficiente |
-| **QR + GPS** | RPi Zero 2W | $75 | USB flexible |
-| **QR + LTE** | RPi Zero 2W | $90 | Módem USB estable |
-| **QR + LTE + GPS** | **RPi Zero 2W** ⭐ | $130 | **Única opción práctica** |
-| **Batería integrada** | Arduino MKR | $85 | Cargador integrado |
-
-### ⚠️ Advertencia ESP32 con Múltiples Periféricos
-
-**Problema:** ESP32 tiene solo 3 UART (compartidos). Conectar QR + LTE + GPS simultáneamente causa:
-- Conflicto de puertos
+**ESP32 con múltiples periféricos:**
+- Solo 3 UART (QR + LTE + GPS = conflicto)
 - USB Host inestable
 - Gestión manual compleja
 
-**Solución:** Raspberry Pi Zero 2W tiene USB host real → todos los periféricos funcionan plug & play.
+**Raspberry Pi Zero 2W:**
+- USB host real = todos los periféricos simultáneos
+- Linux = debugging fácil (SSH, logs)
+- +$15-30 vs eliminación de riesgo técnico
 
-**Diferencia de costo:** Solo +$25-35 vs **eliminación de riesgo técnico**.
-
-Ver [propuestas/README.md](propuestas/README.md) para análisis técnico completo.
-
----
-
-## ✅ Roadmap
-
-- [x] Investigación hardware
-- [x] Documentación módulos
-- [x] Matrices compatibilidad
-- [x] Protocolos comunicación
-- [ ] **Siguiente:** Prototipo físico MVP
-- [ ] Firmware ESP32 completo
-- [ ] Testing conectividad
-- [ ] Expansión GPS/LTE
-
----
-
-## 🎯 Decisión Rápida
-
-**¿Solo QR + Wi-Fi?** → ESP32 + GM67 ($45)  
-**¿QR + LTE + GPS?** → **RPi Zero 2W** ($60-130) ⭐ Recomendado  
-**¿Linux económico?** → Orange Pi Zero2 ($19)  
-**¿Batería integrada?** → Arduino MKR ($45)
-
-📄 Ver [propuestas/README.md](propuestas/README.md) para análisis técnico detallado
+Ver [propuestas/README.md](propuestas/README.md) para detalles técnicos.

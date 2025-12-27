@@ -1,111 +1,110 @@
 # Propuestas de Módulos Base ("Cerebros")
 
-Comparativa de plataformas principales para el sistema QR+Wi-Fi.
+## Recomendación Principal
 
-## Diferencia Conceptual Clave
+### 🥇 Raspberry Pi Zero 2W - **RECOMENDADO**
+**Por qué:** Sistema más robusto, múltiples periféricos sin conflictos, escalable.
 
-### ESP32 → Microcontrolador (MCU)
-- Ejecuta una sola aplicación
-- Sin sistema operativo completo
-- Gestión manual de recursos (Wi-Fi, HTTP, memoria)
-- Muy eficiente y económico
-- **Limitado en interfaces simultáneas**
+| Aspecto | Detalle |
+|---------|---------|
+| **Precio** | $20 (real) |
+| **MVP Completo** | $60-130 según periféricos |
+| **USB Host** | ✅ Real - QR + LTE + GPS simultáneos |
+| **Desarrollo** | Fácil - Linux, SSH, logs nativos |
+| **Riesgo** | 🟢 Bajo - drivers probados |
+| **Cuándo usar** | Múltiples periféricos, producción, escalabilidad |
 
-### Raspberry Pi / Orange Pi → Computador (SBC)
-- Ejecuta Linux completo
-- USB host real con drivers nativos
-- Múltiples procesos, logs, debugging
-- Mayor costo y consumo
-- **Muy flexible para múltiples periféricos**
+### 🥈 ESP32-DevKit - Alternativa Económica
+**Por qué:** Solo para MVP simple sin expansión compleja.
 
----
-
-## Comparativa Rápida
-
-| Plataforma | Precio | RAM/CPU | Wi-Fi | USB Host | GPIO/UART | Multi-Periférico | Recomendación |
-|------------|--------|---------|-------|----------|-----------|------------------|---------------|
-| **ESP32-DevKit** | $5-10 | 520KB/240MHz | 2.4GHz | ❌ | 30+/3 | ⚠️ Limitado | QR+Wi-Fi solo |
-| **ESP32-S3** | $12-15 | 512KB/240MHz | 2.4GHz | ⚠️ | 45+/3 | ⚠️ Limitado | Versión lite |
-| **Orange Pi Zero2** | $19-22 | 1GB/1.5GHz | 2.4+5GHz | ✅ | 26/1+USB | ✅ Excelente | Linux económico |
-| **Raspberry Pi Zero 2W** | **$20** | 512MB/1GHz | 2.4+5GHz | ✅ | 40/1+USB | ✅ Excelente | **⭐ TOP multi-periférico** |
-| **Arduino MKR 1010** | $38-45 | 32KB/48MHz | 2.4+5GHz | ❌ | 8/1 | ❌ | Batería integrada |
+| Aspecto | Detalle |
+|---------|---------|
+| **Precio** | $8 |
+| **MVP Simple** | $45 (solo QR + Wi-Fi) |
+| **USB Host** | ❌ Limitado |
+| **Desarrollo** | Medio - firmware manual |
+| **Riesgo** | 🔴 Alto con múltiples periféricos |
+| **Cuándo usar** | Solo QR + Wi-Fi, presupuesto mínimo |
 
 ---
 
-## Análisis Técnico: Múltiples Periféricos
+## Configuración Wi-Fi Inicial (Todas las Plataformas)
 
-### Problema de Interfaces en ESP32
+**📶 IMPORTANTE:** Todos los dispositivos pueden crear su propia red Wi-Fi temporal para configuración inicial.
 
-**Lectores QR reales en el mercado:**
-1. **USB (HID/Serial)** → Mayoría de modelos comerciales
-2. **UART TTL** → Módulos OEM embebidos
-3. **Cámara** → Solo SBC con procesamiento
+### Funcionamiento:
+1. **Primera vez:** Dispositivo crea red Wi-Fi propia (ej: "QR-Setup-ABC123")
+2. **Usuario conecta** con teléfono/laptop a esa red
+3. **Portal web** aparece automáticamente (captive portal)
+4. **Usuario ingresa:** Nombre de red Wi-Fi y contraseña definitiva
+5. **Dispositivo guarda** credenciales y se reconecta a red objetivo
+6. **Listo:** Funciona normal con Wi-Fi configurado
 
-**Limitación ESP32:**
-- Solo 3 UART (compartidos con debug/flash)
-- USB Host limitado e inestable
-- Si conectas: QR UART + LTE UART + GPS UART → **Sin puertos disponibles**
+### Implementación por Plataforma:
 
-**Ventaja SBC (RPi/OPi):**
-- USB host real → plug & play
-- QR USB + LTE USB + GPS USB → **Funciona simultáneamente**
-- NetworkManager gestiona LTE automáticamente
-- gpsd gestiona GPS sin configuración
+| Plataforma | Método | Complejidad | Código Disponible |
+|------------|--------|-------------|-------------------|
+| **Raspberry Pi** | hostapd + web server | ⭐⭐ Fácil | ✅ Librerías Python/Flask |
+| **ESP32** | WiFi.softAP() + WebServer | ⭐⭐ Fácil | ✅ Ejemplos Arduino abundantes |
+| **Orange Pi** | NetworkManager AP mode | ⭐⭐ Fácil | ✅ Scripts bash estándar |
 
-### Tabla de Riesgos Técnicos
-
-| Riesgo | ESP32 | SBC (RPi/OPi) |
-|--------|-------|---------------|
-| **Falta de interfaces** | 🔴 ALTO | 🟢 BAJO |
-| **Lector QR incompatible** | 🟡 MEDIO | 🟢 BAJO |
-| **LTE inestable** | 🔴 ALTO | 🟢 BAJO |
-| **Debug en campo** | 🔴 DIFÍCIL | 🟢 FÁCIL (SSH) |
-| **Escalar funciones** | 🔴 DIFÍCIL | 🟢 FÁCIL |
-
-### Costos Reales
-
-**ESP32 Completo (QR+LTE+GPS):**
-- Hardware: $60-90
-- Desarrollo firmware: Alto (gestión manual)
-- Riesgo técnico: Alto
-
-**RPi Zero 2W Completo:**
-- Hardware: $90-130
-- Desarrollo: Bajo (drivers existentes)
-- Riesgo técnico: Bajo
-
-**Diferencia:** +$25-35 USD vs **reducción drástica de riesgo**
+**Conclusión:** Configuración Wi-Fi inicial es **trivial en todas las opciones**. No es factor diferenciador.
 
 ---
 
-## Criterios de Selección
+## Diferencia Clave: MCU vs SBC
 
-### Para MVP solo QR + Wi-Fi (<$50):
-➡️ **ESP32-DevKit** - Económico, suficiente
+### ESP32 (Microcontrolador)
+- Una app, sin OS completo
+- 3 UART compartidos
+- QR + LTE + GPS = **conflicto de puertos**
 
-### Para múltiples periféricos (QR + LTE + GPS):
-➡️ **Raspberry Pi Zero 2W** - ⭐ **RECOMENDADO**
-- USB host real elimina conflictos
-- Linux robusto con drivers probados
-- Debugging trivial (SSH, logs)
-- +$25-35 justificados por menor riesgo
+### Raspberry Pi (Computador Linux)
+- Linux completo, múltiples procesos
+- USB host real
+- QR + LTE + GPS = **plug & play simultáneo**
 
-### Para Linux económico:
-➡️ **Orange Pi Zero2** - Similar RPi, $19, Wi-Fi 5GHz
+---
 
-### Si batería integrada es crítica:
-➡️ **Arduino MKR** - Único con cargador, limitaciones técnicas
+## Tabla de Decisión Final
 
-### ⚠️ ESP32 NO recomendado para múltiples periféricos:
-- 3 UART insuficientes
-- USB Host inestable
-- Gestión manual compleja de recursos
+| Tu Caso | Plataforma | Costo | Justificación |
+|---------|------------|-------|---------------|
+| **QR + Wi-Fi básico** | ESP32 | $45 | Suficiente, económico |
+| **QR + GPS** | **RPi Zero 2W** | $75 | USB flexible |
+| **QR + LTE** | **RPi Zero 2W** | $90 | Módem USB estable |
+| **QR + LTE + GPS** | **RPi Zero 2W** | $130 | Única opción práctica |
+| **Producción/Escalable** | **RPi Zero 2W** | $60-130 | Menor riesgo técnico |
+
+### Riesgos Técnicos:
+
+| Riesgo | ESP32 | RPi Zero 2W |
+|--------|-------|-------------|
+| Múltiples periféricos | 🔴 | 🟢 |
+| Debug en campo | 🔴 | 🟢 |
+| Escalabilidad | 🔴 | 🟢 |
+
+**Diferencia de costo:** +$15-30 → **Elimina riesgos críticos**
+
+---
+
+## Plataformas Disponibles
+
+| Plataforma | Precio | Uso Recomendado |
+|------------|--------|-----------------|
+| **Raspberry Pi Zero 2W** | $20 | ⭐ **1ª opción** - Producción/múltiples periféricos |
+| **ESP32-DevKit** | $8 | **2ª opción** - MVP mínimo sin expansión |
+| **Orange Pi Zero2** | $19 | Alternativa a RPi si no disponible |
+| **Arduino MKR 1010** | $45 | Solo si batería integrada crítica |
+
+---
 
 ## Archivos Detallados
-- [ESP32-DevKit](esp32-devkit.md) - ⭐ Recomendado MVP
-- [ESP32-S3](esp32-s3.md) - Avanzado
-- [Orange Pi Zero2](orange-pi-zero2.md) - Linux económico
-- [Raspberry Pi Zero 2W](raspberry-pi-zero-2w.md) - Linux premium
+
+- [Raspberry Pi Zero 2W](raspberry-pi-zero-2w.md) - Recomendado
+- [ESP32-DevKit](esp32-devkit.md) - Alternativa económica
+- [Orange Pi Zero2](orange-pi-zero2.md) - Alternativa Linux
+- [ESP32-S3](esp32-s3.md) - Avanzado (no recomendado para múltiples periféricos)
 - [Arduino MKR WiFi 1010](arduino-mkr-wifi-1010.md) - Batería integrada
 - ❌ Boot lento (20-40 seg)
 - ❌ Costo mayor
