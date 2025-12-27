@@ -4,27 +4,31 @@ Comparativa de plataformas principales para el sistema QR+Wi-Fi:
 
 ## Comparativa Rápida
 
-| Plataforma | Precio | RAM/CPU | Wi-Fi | Batería | GPIO/UART | Expansión | Recomendación |
-|------------|--------|---------|-------|---------|-----------|-----------|---------------|
-| **ESP32-DevKit** | $5-10 | 520KB/240MHz | 2.4GHz | Externo | 30+/3 | ⭐⭐⭐ | **⭐ TOP MVP** |
-| **ESP32-S3** | $12-15 | 512KB/240MHz | 2.4GHz | Externo | 45+/3 | ⭐⭐⭐ | Avanzado/cámara |
-| **Orange Pi Zero2** | $19-22 | 1GB/1.5GHz | 2.4+5GHz | UPS HAT | 26/1 | ⭐⭐ | Alt. Linux |
-| **Raspberry Pi Zero 2W** | $30-40 | 512MB/1GHz | 2.4+5GHz | Externo | 40/1 | ⭐⭐⭐ | Premium Linux |
-| **Arduino MKR 1010** | $38-45 | 32KB/48MHz | 2.4+5GHz | **Integrado** | 8/1 | ⭐ | Solo si batería crítica |
+| Plataforma | Precio | RAM/CPU | Wi-Fi | USB Host | GPIO/UART | Multi-Periférico | Recomendación |
+|------------|--------|---------|-------|----------|-----------|------------------|---------------|
+| **ESP32-DevKit** | $5-10 | 520KB/240MHz | 2.4GHz | ❌ | 30+/3 | ⚠️ Limitado | QR+Wi-Fi solo |
+| **ESP32-S3** | $12-15 | 512KB/240MHz | 2.4GHz | ⚠️ | 45+/3 | ⚠️ Limitado | Versión lite |
+| **Orange Pi Zero2** | $19-22 | 1GB/1.5GHz | 2.4+5GHz | ✅ | 26/1+USB | ✅ Excelente | Linux económico |
+| **Raspberry Pi Zero 2W** | **$20** | 512MB/1GHz | 2.4+5GHz | ✅ | 40/1+USB | ✅ Excelente | **⭐ TOP multi-periférico** |
+| **Arduino MKR 1010** | $38-45 | 32KB/48MHz | 2.4+5GHz | ❌ | 8/1 | ❌ | Batería integrada |
 
 ## Criterios de Selección
 
-### Para MVP (<$60 total):
-➡️ **ESP32-DevKit** - Máximo valor, fácil expansión
+### Para MVP solo QR + Wi-Fi (<$50):
+➡️ **ESP32-DevKit** - Económico, suficiente
 
-### Si necesitas Linux:
-➡️ **Orange Pi Zero2** (disponibilidad/precio) o **RPi Zero 2W** (soporte/comunidad)
+### Para múltiples periféricos (QR + LTE + GPS):
+➡️ **Raspberry Pi Zero 2W** - ⭐ **RECOMENDADO** - USB host real, Linux robusto
 
-### Si expansión compleja futura (LTE+GPS+Cámara):
-➡️ **ESP32-S3** - Más GPIO y potencia, compatible ESP32
+### Para Linux económico:
+➡️ **Orange Pi Zero2** - Similar RPi, $19, Wi-Fi 5GHz
 
 ### Si batería integrada es crítica:
-➡️ **Arduino MKR** - Único con cargador, pero costoso y limitado
+➡️ **Arduino MKR** - Único con cargador, limitaciones técnicas
+
+### ⚠️ ESP32-S3 NO recomendado para múltiples periféricos:
+- Limitaciones UART cuando se usan QR + LTE + GPS
+- Ver [Análisis Comparativo](../analisis-comparativo.md) para detalles
 
 ## Archivos Detallados
 - [ESP32-DevKit](esp32-devkit.md) - ⭐ Recomendado MVP

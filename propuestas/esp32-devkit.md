@@ -75,4 +75,6 @@
 ⚠️ Solo 3.3V lógica | LTE requiere circuito externo complejo | Sin cargador batería integrado
 
 ## Recomendación
-**⭐ TOP CHOICE** para MVP - Mejor balance costo/capacidad. Ideal para prototipo escalable.
+**⭐ TOP CHOICE para MVP simple** (solo QR + Wi-Fi) - Mejor balance costo/capacidad.
+
+⚠️ **IMPORTANTE:** Si tu proyecto requiere **múltiples periféricos simultáneos** (QR + LTE + GPS), considera **Raspberry Pi Zero 2W** en su lugar. ESP32 tiene limitaciones de UART que dificultan la conexión de 3+ periféricos. Ver [Análisis Comparativo](../analisis-comparativo.md) completo.

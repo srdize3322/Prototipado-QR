@@ -36,11 +36,11 @@
 | **+LTE Dongle** | Anterior + 4G USB + Hub | ~$120 | Celular managed |
 
 ## Costo & Disponibilidad
-- **Placa:** $30-40 (⚠️ Disponibilidad variable)
+- **Placa:** **$20** (✅ Precio real encontrado)
 - **Fuente 5V/2.5A oficial:** $8-10
 - **SD 16GB:** $8-10
 - **Carcasa:** $5-8 (opcional)
-- **Total MVP:** ~$70-80
+- **Total MVP:** ~$60-70
 - **Stock:** ⚠️ Moderado (escasez recurrente)
 
 ## Pros/Contras

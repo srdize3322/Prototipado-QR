@@ -34,24 +34,26 @@ modulos/             # Periféricos
 
 | Config | Componentes | Costo | Uso |
 |--------|-------------|-------|-----|
-| **MVP Básico** | ESP32 + GM67 + LEDs | **$45** | ⭐ Recomendado inicio |
-| **MVP Premium** | ESP32 + DE2120 + LEDs | $80 | Mejor rango/velocidad |
-| **+GPS** | MVP + NEO-M8N | $60 | Geolocalización |
-| **+LTE Simple** | RPi Zero 2W + USB 4G | $100 | Celular fácil |
-| **+LTE Complejo** | ESP32 + SIM7600 | $95 | Celular optimizado |
+| **MVP Simple** | ESP32 + GM67 + LEDs | **$45** | Solo QR + Wi-Fi |
+| **MVP Completo** | RPi Zero 2W + QR USB + LEDs | **$60** | ⭐ Multi-periférico |
+| **+GPS** | RPi + GPS USB | $75 | Geolocalización |
+| **+LTE** | RPi + LTE USB + Hub | $110 | Conectividad celular |
+| **Todo integrado** | RPi + QR + GPS + LTE | $130 | Sistema completo |
 
 ---
 
-## 🚀 Comenzar: MVP en 3 Pasos
+## 🚀 Comenzar: Dos Rutas MVP
 
-### 1. Hardware ($45 total)
+### Ruta A: Simple (Solo QR + Wi-Fi) - $45
+
+**Hardware:**
 - [ESP32-DevKit](propuestas/esp32-devkit.md): $8
 - [GM67 QR UART](modulos/lector-qr.md): $30
 - [2 LEDs + resistencias](modulos/led-indicadores.md): $0.50
 - Cables dupont: $2
 - Fuente USB 5V/2A: $5
 
-### 2. Conexiones
+**Conexiones:**
 ```
 GM67 → ESP32
 ───────────────
@@ -59,15 +61,27 @@ VCC  → 5V
 GND  → GND
 TX   → GPIO16 (RX2)
 RX   → GPIO17 (TX2)
-
-LEDs → ESP32
-───────────────
-Verde → GPIO25 → 220Ω → LED → GND
-Rojo  → GPIO26 → 220Ω → LED → GND
 ```
 
-### 3. Código Base
-Ver [modulos/comunicacion.md](modulos/comunicacion.md) para endpoints HTTP y lógica LED
+---
+
+### Ruta B: Completo (QR + LTE + GPS) - $60-130 ⭐ Recomendado
+
+**Hardware:**
+- [Raspberry Pi Zero 2W](propuestas/raspberry-pi-zero-2w.md): $20
+- [GM67 QR USB](modulos/lector-qr.md): $30
+- SD 16GB + Fuente: $15
+- LEDs: $0.50
+- GPS USB (opcional): $15
+- LTE USB (opcional): $45
+
+**Ventajas:**
+- ✅ USB host real - plug & play
+- ✅ Múltiples periféricos sin conflicto
+- ✅ Linux completo - debugging fácil
+- ✅ Escalable sin reescribir código
+
+**Ver:** [Análisis Comparativo Completo](analisis-comparativo.md) para justificación técnica
 
 ---
 
@@ -75,11 +89,11 @@ Ver [modulos/comunicacion.md](modulos/comunicacion.md) para endpoints HTTP y ló
 
 | Plataforma | Precio | Complejidad | Expansión | Recomendación |
 |------------|--------|-------------|-----------|---------------|
-| **ESP32-DevKit** | $8 | ⭐ Fácil | ⭐⭐⭐ | **⭐ MVP** |
-| **ESP32-S3** | $15 | ⭐⭐ | ⭐⭐⭐ | Avanzado |
-| **Orange Pi Zero2** | $22 | ⭐⭐ | ⭐⭐ | Alt. Linux |
-| **RPi Zero 2W** | $40 | ⭐⭐ | ⭐⭐⭐ | Premium |
-| **Arduino MKR** | $45 | ⭐ | ⭐ | Solo si batería crítica |
+| **ESP32-DevKit** | $8 | ⭐ Fácil | ⭐⭐ | QR+Wi-Fi solo |
+| **ESP32-S3** | $15 | ⭐⭐ | ⭐⭐ | Versión lite |
+| **Orange Pi Zero2** | $19 | ⭐⭐ | ⭐⭐⭐ | Linux económico |
+| **RPi Zero 2W** | **$20** | ⭐⭐ | ⭐⭐⭐ | **⭐ MVP multi-periférico** |
+| **Arduino MKR** | $45 | ⭐ | ⭐ | Solo batería integrada |
 
 ---
 
@@ -115,9 +129,9 @@ Ver [modulos/comunicacion.md](modulos/comunicacion.md) para endpoints HTTP y ló
 
 ## 🎯 Decisión Rápida
 
-**¿Presupuesto <$60?** → ESP32 + GM67  
-**¿Necesitas Linux?** → Orange Pi Zero2  
-**¿Máxima velocidad?** → ESP32 + DE2120  
-**¿Batería integrada crítica?** → Arduino MKR (⚠️ costoso)
+**¿Solo QR + Wi-Fi?** → ESP32 + GM67 ($45)
+**¿QR + LTE + GPS?** → **RPi Zero 2W** ($60-130) ⭐ Recomendado
+**¿Linux económico?** → Orange Pi Zero2 ($19)
+**¿Batería integrada?** → Arduino MKR ($45)
 
-Ver archivos individuales para specs técnicas completas.
+📄 Ver [Análisis Comparativo Completo](analisis-comparativo.md) para justificación técnica
