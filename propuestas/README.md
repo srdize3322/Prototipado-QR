@@ -1,6 +1,24 @@
 # Propuestas de Módulos Base ("Cerebros")
 
-Comparativa de plataformas principales para el sistema QR+Wi-Fi:
+Comparativa de plataformas principales para el sistema QR+Wi-Fi.
+
+## Diferencia Conceptual Clave
+
+### ESP32 → Microcontrolador (MCU)
+- Ejecuta una sola aplicación
+- Sin sistema operativo completo
+- Gestión manual de recursos (Wi-Fi, HTTP, memoria)
+- Muy eficiente y económico
+- **Limitado en interfaces simultáneas**
+
+### Raspberry Pi / Orange Pi → Computador (SBC)
+- Ejecuta Linux completo
+- USB host real con drivers nativos
+- Múltiples procesos, logs, debugging
+- Mayor costo y consumo
+- **Muy flexible para múltiples periféricos**
+
+---
 
 ## Comparativa Rápida
 
@@ -12,13 +30,65 @@ Comparativa de plataformas principales para el sistema QR+Wi-Fi:
 | **Raspberry Pi Zero 2W** | **$20** | 512MB/1GHz | 2.4+5GHz | ✅ | 40/1+USB | ✅ Excelente | **⭐ TOP multi-periférico** |
 | **Arduino MKR 1010** | $38-45 | 32KB/48MHz | 2.4+5GHz | ❌ | 8/1 | ❌ | Batería integrada |
 
+---
+
+## Análisis Técnico: Múltiples Periféricos
+
+### Problema de Interfaces en ESP32
+
+**Lectores QR reales en el mercado:**
+1. **USB (HID/Serial)** → Mayoría de modelos comerciales
+2. **UART TTL** → Módulos OEM embebidos
+3. **Cámara** → Solo SBC con procesamiento
+
+**Limitación ESP32:**
+- Solo 3 UART (compartidos con debug/flash)
+- USB Host limitado e inestable
+- Si conectas: QR UART + LTE UART + GPS UART → **Sin puertos disponibles**
+
+**Ventaja SBC (RPi/OPi):**
+- USB host real → plug & play
+- QR USB + LTE USB + GPS USB → **Funciona simultáneamente**
+- NetworkManager gestiona LTE automáticamente
+- gpsd gestiona GPS sin configuración
+
+### Tabla de Riesgos Técnicos
+
+| Riesgo | ESP32 | SBC (RPi/OPi) |
+|--------|-------|---------------|
+| **Falta de interfaces** | 🔴 ALTO | 🟢 BAJO |
+| **Lector QR incompatible** | 🟡 MEDIO | 🟢 BAJO |
+| **LTE inestable** | 🔴 ALTO | 🟢 BAJO |
+| **Debug en campo** | 🔴 DIFÍCIL | 🟢 FÁCIL (SSH) |
+| **Escalar funciones** | 🔴 DIFÍCIL | 🟢 FÁCIL |
+
+### Costos Reales
+
+**ESP32 Completo (QR+LTE+GPS):**
+- Hardware: $60-90
+- Desarrollo firmware: Alto (gestión manual)
+- Riesgo técnico: Alto
+
+**RPi Zero 2W Completo:**
+- Hardware: $90-130
+- Desarrollo: Bajo (drivers existentes)
+- Riesgo técnico: Bajo
+
+**Diferencia:** +$25-35 USD vs **reducción drástica de riesgo**
+
+---
+
 ## Criterios de Selección
 
 ### Para MVP solo QR + Wi-Fi (<$50):
 ➡️ **ESP32-DevKit** - Económico, suficiente
 
 ### Para múltiples periféricos (QR + LTE + GPS):
-➡️ **Raspberry Pi Zero 2W** - ⭐ **RECOMENDADO** - USB host real, Linux robusto
+➡️ **Raspberry Pi Zero 2W** - ⭐ **RECOMENDADO**
+- USB host real elimina conflictos
+- Linux robusto con drivers probados
+- Debugging trivial (SSH, logs)
+- +$25-35 justificados por menor riesgo
 
 ### Para Linux económico:
 ➡️ **Orange Pi Zero2** - Similar RPi, $19, Wi-Fi 5GHz
@@ -26,9 +96,10 @@ Comparativa de plataformas principales para el sistema QR+Wi-Fi:
 ### Si batería integrada es crítica:
 ➡️ **Arduino MKR** - Único con cargador, limitaciones técnicas
 
-### ⚠️ ESP32-S3 NO recomendado para múltiples periféricos:
-- Limitaciones UART cuando se usan QR + LTE + GPS
-- Ver [Análisis Comparativo](../analisis-comparativo.md) para detalles
+### ⚠️ ESP32 NO recomendado para múltiples periféricos:
+- 3 UART insuficientes
+- USB Host inestable
+- Gestión manual compleja de recursos
 
 ## Archivos Detallados
 - [ESP32-DevKit](esp32-devkit.md) - ⭐ Recomendado MVP

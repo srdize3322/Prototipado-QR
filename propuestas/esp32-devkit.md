@@ -77,4 +77,4 @@
 ## Recomendación
 **⭐ TOP CHOICE para MVP simple** (solo QR + Wi-Fi) - Mejor balance costo/capacidad.
 
-⚠️ **IMPORTANTE:** Si tu proyecto requiere **múltiples periféricos simultáneos** (QR + LTE + GPS), considera **Raspberry Pi Zero 2W** en su lugar. ESP32 tiene limitaciones de UART que dificultan la conexión de 3+ periféricos. Ver [Análisis Comparativo](../analisis-comparativo.md) completo.
+⚠️ **IMPORTANTE:** Si tu proyecto requiere **múltiples periféricos simultáneos** (QR + LTE + GPS), considera **Raspberry Pi Zero 2W** en su lugar. ESP32 tiene limitaciones de UART que dificultan la conexión de 3+ periféricos. Ver [propuestas/README.md](README.md) para análisis técnico completo.

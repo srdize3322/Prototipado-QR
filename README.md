@@ -81,7 +81,7 @@ RX   → GPIO17 (TX2)
 - ✅ Linux completo - debugging fácil
 - ✅ Escalable sin reescribir código
 
-**Ver:** [Análisis Comparativo Completo](analisis-comparativo.md) para justificación técnica
+**Ver:** [propuestas/README.md](propuestas/README.md) para análisis técnico detallado
 
 ---
 
@@ -108,9 +108,34 @@ RX   → GPIO17 (TX2)
 
 ## 📖 Documentación Detallada
 
-- [Plataformas Base](propuestas/README.md) - Comparativa cerebros
+- [Plataformas Base](propuestas/README.md) - Comparativa cerebros + análisis técnico
 - [Módulos Periféricos](modulos/README.md) - QR, GPS, LTE, LEDs
 - [Protocolos Comunicación](modulos/comunicacion.md) - HTTP/MQTT + JSON
+
+---
+
+## 🎯 Decisión por Caso de Uso
+
+| Tu Necesidad | Plataforma Recomendada | Costo | Por Qué |
+|--------------|------------------------|-------|---------|
+| **QR + Wi-Fi básico** | ESP32-DevKit | $45 | Económico, suficiente |
+| **QR + GPS** | RPi Zero 2W | $75 | USB flexible |
+| **QR + LTE** | RPi Zero 2W | $90 | Módem USB estable |
+| **QR + LTE + GPS** | **RPi Zero 2W** ⭐ | $130 | **Única opción práctica** |
+| **Batería integrada** | Arduino MKR | $85 | Cargador integrado |
+
+### ⚠️ Advertencia ESP32 con Múltiples Periféricos
+
+**Problema:** ESP32 tiene solo 3 UART (compartidos). Conectar QR + LTE + GPS simultáneamente causa:
+- Conflicto de puertos
+- USB Host inestable
+- Gestión manual compleja
+
+**Solución:** Raspberry Pi Zero 2W tiene USB host real → todos los periféricos funcionan plug & play.
+
+**Diferencia de costo:** Solo +$25-35 vs **eliminación de riesgo técnico**.
+
+Ver [propuestas/README.md](propuestas/README.md) para análisis técnico completo.
 
 ---
 
