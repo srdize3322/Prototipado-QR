@@ -58,7 +58,7 @@ propuestas/          # Módulos base
 
 modulos/             # Periféricos
 ├── lector-qr.md            GM67/DE2120 (UART/USB)
-├── comunicacion.md         HTTP REST / MQTT
+├── comunicacion.md         HTTP REST
 ├── gps.md                  NEO-6M/M8N
 ├── lte.md                  SIM7600/USB dongles
 └── led-indicadores.md      Estados visuales

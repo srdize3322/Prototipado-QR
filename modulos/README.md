@@ -11,7 +11,7 @@ Componentes que expanden las capacidades del módulo base.
 | [Lector QR](lector-qr.md) | Escaneo códigos 2D | $28-66 | ✅ **Esencial** | ⭐ Fácil |
 | [Wi-Fi](wifi.md) | Conectividad (integrado) | $0 | ✅ **Esencial** | ⭐ Fácil |
 | [LEDs](led-indicadores.md) | Indicadores estado | $0.50-5 | ✅ **Esencial** | ⭐ Fácil |
-| [Comunicación](comunicacion.md) | Protocolos HTTP/MQTT | $0 | ✅ **Esencial** | ⭐⭐ Media |
+| [Comunicación](comunicacion.md) | Protocolo HTTP REST | $0 | ✅ **Esencial** | ⭐⭐ Media |
 | [GPS](gps.md) | Geolocalización | $8-30 | ⚠️ Opcional | ⭐⭐ Media |
 | [LTE](lte.md) | Conectividad móvil | $25-50 | ⚠️ Opcional | ⭐⭐⭐⭐ Difícil |
 

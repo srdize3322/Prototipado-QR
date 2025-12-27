@@ -1,34 +1,15 @@
 # Protocolos de Comunicación
 
-## HTTPS REST vs MQTT
+## HTTPS REST
 
-| Aspecto | HTTPS REST | MQTT |
-|---------|-----------|------|
-| **Complejidad** | Simple | Requiere broker |
-| **Latencia** | ~500ms-2s | ~50-200ms |
-| **Overhead** | Alto | Bajo |
-| **Infraestructura** | Solo servidor web | Broker MQTT |
-| **Debugging** | Fácil (curl) | Requiere cliente |
-| **Firewall** | Puerto 443 | Puerto 1883/8883 |
-
----
-
-## Recomendación por Fase
-
-### ⭐ MVP: **HTTPS REST**
-✅ Rápido implementar  
+✅ Simple de implementar  
 ✅ Sin infraestructura adicional  
-✅ Fácil debug  
-✅ Suficiente <100 dispositivos
-
-### Escalado: **MQTT**
-✅ Mejor >100 dispositivos  
-✅ Bidireccional  
-✅ Menor consumo batería
+✅ Fácil debug (curl, Postman)  
+✅ Puerto estándar (443)
 
 ---
 
-## Endpoints REST (MVP)
+## Endpoints REST
 
 **Base URL:** `https://tu-servidor.com/api/v1`
 
