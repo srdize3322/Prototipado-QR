@@ -154,9 +154,9 @@ Ver [propuestas/README.md](propuestas/README.md) para análisis técnico complet
 
 ## 🎯 Decisión Rápida
 
-**¿Solo QR + Wi-Fi?** → ESP32 + GM67 ($45)
-**¿QR + LTE + GPS?** → **RPi Zero 2W** ($60-130) ⭐ Recomendado
-**¿Linux económico?** → Orange Pi Zero2 ($19)
+**¿Solo QR + Wi-Fi?** → ESP32 + GM67 ($45)  
+**¿QR + LTE + GPS?** → **RPi Zero 2W** ($60-130) ⭐ Recomendado  
+**¿Linux económico?** → Orange Pi Zero2 ($19)  
 **¿Batería integrada?** → Arduino MKR ($45)
 
-📄 Ver [Análisis Comparativo Completo](analisis-comparativo.md) para justificación técnica
+📄 Ver [propuestas/README.md](propuestas/README.md) para análisis técnico detallado
