@@ -6,8 +6,8 @@
 - **Wi-Fi:** 2.4/5GHz dual-band
 - **GPIO:** Solo 8 pines
 - **UART:** 1 (conflicto con debug)
-- **Precio:** $38-45 ❌
-- **Batería:** ✅ Cargador Li-Po integrado
+- **Precio:** $38-45
+- **Batería:** Cargador Li-Po integrado
 
 ---
 

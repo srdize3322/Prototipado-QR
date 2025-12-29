@@ -15,18 +15,18 @@
 | Feature | ESP32 | ESP32-S3 |
 |---------|-------|----------|
 | **Precio** | $8 | $12-15 |
-| **USB** | Vía bridge | ✅ **Nativo** |
-| **BT** | 4.2 | ✅ **5.0** |
-| **GPIO** | 30+ | ✅ **45** |
-| **Cámara** | Básico | ✅ **Mejor** |
+| **USB** | Vía bridge | Nativo |
+| **BT** | 4.2 | 5.0 |
+| **GPIO** | 30+ | 45 |
+| **Cámara** | Básico | Mejor |
 
 ---
 
 ## Cuándo Usar S3
 
-✓ Necesitas cámara + procesamiento  
-✓ Requieres >30 GPIO simultáneos  
-✓ USB nativo simplifica debugging  
+Necesitas cámara + procesamiento  
+Requieres >30 GPIO simultáneos  
+USB nativo simplifica debugging  
 
 ---
 

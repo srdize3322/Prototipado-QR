@@ -14,19 +14,19 @@
 
 ## Ventajas
 
-✓ **Precio:** $8 (lo más barato)  
-✓ **Consumo:** 0.8W (ideal batería)  
-✓ **Boot:** 2s (rápido)  
-✓ **3× UART:** QR, GPS, debug simultáneos
+**Precio:** $8 (lo más barato)  
+**Consumo:** 0.8W (ideal batería)  
+**Boot:** 2s (rápido)  
+**3× UART:** QR, GPS, debug simultáneos
 
 ---
 
 ## Limitaciones
 
-• **No USB Host:** Solo periféricos UART  
-• **1 QR + 1 GPS máximo:** No más de 3 UART  
-• **LTE complejo:** Requiere fuente externa 3A  
-• **Arduino IDE:** Debugging limitado vs Linux
+**No USB Host:** Solo periféricos UART  
+**1 QR + 1 GPS máximo:** No más de 3 UART  
+**LTE complejo:** Requiere fuente externa 3A  
+**Arduino IDE:** Debugging limitado vs Linux
 
 ---
 
@@ -42,10 +42,10 @@
 
 ## Cuándo Usar
 
-✓ Presupuesto mínimo (<$50)  
-✓ Solo QR o QR+GPS  
-✓ Batería (bajo consumo)  
-✓ Producción masiva (barato)
+Presupuesto mínimo (<$50)  
+Solo QR o QR+GPS  
+Batería (bajo consumo)  
+Producción masiva (barato)
 
 ---
 
@@ -54,8 +54,8 @@
 ✗ Necesitas 3+ periféricos  
 ✗ Requieres USB (dongles 4G)  
 ✗ Lógica compleja (bases de datos)
-| **OLED/TFT** | ✅ | I2C/SPI estándar |
-| **Batería** | ⚠️ | Requiere TP4056 externo |
+| **OLED/TFT** | ✓ | I2C/SPI estándar |
+| **Batería** | Compatible | Requiere TP4056 externo |
 
 ## Expansión Futura
 - **UART libre:** 1 disponible post-QR (para LTE/GPS adicional)
@@ -77,10 +77,12 @@
 - **Stock:** Alto (disponible inmediato)
 
 ## Pros/Contras
-✅ Muy bajo costo | Wi-Fi integrado | Bajo consumo | Arduino fácil | Comunidad amplia
-⚠️ Solo 3.3V lógica | LTE requiere circuito externo complejo | Sin cargador batería integrado
+
+**Pros:** Muy bajo costo, Wi-Fi integrado, bajo consumo, Arduino fácil, comunidad amplia  
+**Contras:** Solo 3.3V lógica, LTE requiere circuito externo complejo, sin cargador batería integrado
 
 ## Recomendación
-**⭐ TOP CHOICE para MVP simple** (solo QR + Wi-Fi) - Mejor balance costo/capacidad.
 
-⚠️ **IMPORTANTE:** Si tu proyecto requiere **múltiples periféricos simultáneos** (QR + LTE + GPS), considera **Raspberry Pi Zero 2W** en su lugar. ESP32 tiene limitaciones de UART que dificultan la conexión de 3+ periféricos. Ver [propuestas/README.md](README.md) para análisis técnico completo.
+**TOP CHOICE para MVP simple** (solo QR + Wi-Fi) - Mejor balance costo/capacidad.
+
+**IMPORTANTE:** Si tu proyecto requiere múltiples periféricos simultáneos (QR + LTE + GPS), considera Raspberry Pi Zero 2W en su lugar. ESP32 tiene limitaciones de UART que dificultan la conexión de 3+ periféricos. Ver [propuestas/README.md](README.md) para análisis técnico completo.
