@@ -4,6 +4,85 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
+## Decisión de Plataforma
+
+**Plataforma elegida: Raspberry Pi Zero 2 W (con header soldado)**
+
+**Motivo:** Mejor compatibilidad y velocidad de prototipado. Permite integrar lector QR por USB/UART y controlar LEDs por GPIO sin conflictos. Única opción práctica para escalar a múltiples periféricos (QR + GPS + LTE).
+
+**Lector QR:** GM67 (1D/2D) - soporta USB y UART. Para MVP usaremos USB (más simple).
+
+**Puerto correcto:** En la Zero 2 W, solo el puerto micro-USB marcado "USB" soporta OTG/datos. El puerto "PWR" es únicamente para alimentación.
+
+---
+
+## BOM / Kit Fase Inicial (QR + 4G + RPi Zero 2W)
+
+> **Precios referenciales en CLP al 2025-12-29** (AliExpress). Pueden variar por cupones, vendedor, tipo de cambio e impuestos de importación.
+>
+> **Esta es la propuesta inicial para la etapa de prototipado**, posterior a la reunión y análisis. Empezamos con módulo QR + 4G + Raspberry Pi Zero 2W.
+
+| Item | Cant. | Precio | Envío | Subtotal | Link |
+|------|------:|-------:|------:|---------:|------|
+| Lector QR 1D/2D **GM67** | 1 | 14.300 | 5.438 | 19.738 | [AliExpress](https://es.aliexpress.com/item/1005005353980674.html) |
+| **Raspberry Pi Zero 2 W** (con pines soldados) | 1 | 20.700 | 0 | 20.700 | [AliExpress](https://es.aliexpress.com/item/1005008224603338.html) |
+| Carcasa aluminio CNC + disipación pasiva | 1 | 920 | 0 | 920 | [AliExpress](https://es.aliexpress.com/item/1005004091121680.html) |
+| microSD 32 GB | 1 | 5.100 | 0 | 5.100 | [AliExpress](https://es.aliexpress.com/item/1005007535345003.html) |
+| Fuente poder 5V 3A micro-USB | 1 | 2.330 | 0 | 2.330 | [AliExpress](https://www.aliexpress.com/ssr/300000512/BundleDeals2?productIds=1005008799188307:12000046708556983) |
+| Adaptador OTG micro-USB macho → USB-A hembra (90°) | 1 | 884 | 1.738 | 2.622 | [AliExpress](https://es.aliexpress.com/item/4001307573370.html) |
+| Cables Dupont 40 unids (M-M / F-F / M-F) | 1 | 920 | 0 | 920 | [AliExpress](https://es.aliexpress.com/item/32349445870.html) |
+| Dongle USB **4G LTE** (150Mbps) | 1 | 9.700 | 0 | 9.700 | [AliExpress](https://es.aliexpress.com/item/1005010632978744.html) |
+
+**TOTAL KIT BASE: 62.030 CLP** (~US$68 usando 1 USD ≈ 905,90 CLP)
+
+### Faltantes / Recomendado para Kit Armable
+
+**Obligatorio para MVP (indicadores visuales):**
+- [ ] 1x LED verde + 1x LED rojo (5mm o SMD)
+- [ ] 2x resistencias 220-330 Ω (una por LED)
+- [ ] Mini protoboard o PCB perforada para fijar LEDs y resistencias
+
+**Recomendado (por uso de múltiples USB):**
+- [ ] Hub USB OTG (idealmente alimentado) para conectar GM67 + dongle 4G simultáneamente
+- [ ] SIM + plan de datos (si se usará LTE)
+- [ ] Cable extensión USB corto (acomodar dongle dentro/fuera carcasa)
+
+**Recomendado para armado limpio:**
+- [ ] Separadores/tornillos (standoffs) para montar Zero 2 W en carcasa
+- [ ] Cinta doble contacto/termal o pads térmicos (según carcasa)
+
+**Solo para debug (opcional):**
+- [ ] Adaptador micro-HDMI → HDMI (si se quiere monitor)
+- [ ] Teclado/mouse USB (si no se configura headless)
+- [ ] Lector USB de microSD (si tu PC no tiene ranura)
+
+---
+
+## Conexión del GM67
+
+### Recomendado (MVP): GM67 por USB
+- Conectar GM67 al puerto micro-USB marcado "USB" usando el adaptador OTG
+- Alimentación Pi por puerto "PWR IN"
+- GM67 soporta USB y UART (validado por manual)
+
+### Alternativo: GM67 por UART (GPIO)
+- Solo si el GM67 se usa en modo serial TTL
+- Antes de cablear: confirmar niveles lógicos (3.3V vs 5V) en manual del GM67
+
+---
+
+## Conectividad LTE (Opcional)
+
+Para escenarios sin Wi-Fi estable, se puede usar un **dongle 4G LTE por USB**.
+
+**Consideración clave:** La Zero 2 W tiene **un solo USB OTG**. Si usamos GM67 por USB + dongle 4G por USB simultáneamente, necesitaremos un **hub USB OTG** (idealmente con alimentación externa) o mover el GM67 a **UART (GPIO)**.
+
+**Configuraciones recomendadas:**
+- **MVP simple:** GM67 por USB + Wi-Fi (sin 4G)
+- **MVP robusto:** GM67 por UART + dongle 4G por USB (sin hub necesario)
+
+---
+
 ## Foco del Proyecto
 
 **Objetivo:** Desarrollar un lector QR portátil con conectividad Wi-Fi para eventos, que pueda escanear códigos QR y enviar los datos a un servidor en tiempo real.
@@ -14,6 +93,11 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 - Indicadores LED de estado
 - Configuración Wi-Fi simple (captive portal)
 - Escalable: GPS y LTE opcionales
+
+**Funcionalidad MVP:**
+1. Lee QR → envía request al servidor
+2. Según respuesta: LED verde (OK) o LED rojo (ERROR)
+3. Considera reintentos y cola mínima cuando no hay red
 
 ---
 
