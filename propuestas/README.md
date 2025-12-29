@@ -50,6 +50,8 @@
 
 **Conclusión:** Configuración Wi-Fi inicial es **trivial en todas las opciones**. No es factor diferenciador.
 
+**Comunicación:** Los dispositivos envían requests HTTPS a servidor para procesar datos de QR escaneados.
+
 ---
 
 ## Diferencia Clave: MCU vs SBC
