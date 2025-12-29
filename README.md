@@ -32,8 +32,11 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 | Adaptador OTG micro-USB macho → USB-A hembra (90°) | 1 | 884 | 1.738 | 2.622 | [AliExpress](https://es.aliexpress.com/item/4001307573370.html) |
 | Cables Dupont 40 unids (M-M / F-F / M-F) | 1 | 920 | 0 | 920 | [AliExpress](https://es.aliexpress.com/item/32349445870.html) |
 | Dongle USB **4G LTE** (150Mbps) | 1 | 9.700 | 0 | 9.700 | [AliExpress](https://es.aliexpress.com/item/1005010632978744.html) |
+| **Freenove Ultimate Starter Kit** (para familiarización RPi Pico) | 1 | 29.200 | 0 | 29.200 | [AliExpress](https://es.aliexpress.com/item/1005004336772445.html) |
 
-**TOTAL KIT BASE: 62.030 CLP** (~US$68 usando 1 USD ≈ 905,90 CLP)
+**TOTAL KIT PROTOTIPADO: 91.230 CLP** (~US$101 usando 1 USD ≈ 905,90 CLP)
+
+> **Nota:** El Starter Kit incluye 220 componentes, 119 proyectos y tutorial de 767 páginas para familiarizarse con el entorno Raspberry Pi durante la fase de prototipado.
 
 ### Faltantes / Recomendado para Kit Armable
 
