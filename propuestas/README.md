@@ -2,7 +2,7 @@
 
 ## Recomendación Principal
 
-### 🥇 Raspberry Pi Zero 2W - **RECOMENDADO**
+### Raspberry Pi Zero 2W - **RECOMENDADO**
 **Por qué:** Sistema más robusto, múltiples periféricos sin conflictos, escalable.
 
 | Aspecto | Detalle |
