@@ -50,7 +50,7 @@
 ---
 
 ## Recomendación MVP
-➡️ **2 LEDs (Verde + Rojo)** + resistencias 220Ω  
+**2 LEDs (Verde + Rojo)** + resistencias 220Ω  
 - Costo: $0.50
 - Suficiente para todos los estados
 - Muy simple de implementar

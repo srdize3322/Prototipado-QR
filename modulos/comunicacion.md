@@ -2,10 +2,10 @@
 
 ## HTTPS REST
 
-✅ Simple de implementar  
-✅ Sin infraestructura adicional  
-✅ Fácil debug (curl, Postman)  
-✅ Puerto estándar (443)
+✓ Simple de implementar  
+✓ Sin infraestructura adicional  
+✓ Fácil debug (curl, Postman)  
+✓ Puerto estándar (443)
 
 ---
 
@@ -27,9 +27,9 @@ Obtener parámetros remotos
 
 ## Seguridad
 
-✅ TLS 1.2+ obligatorio  
-✅ API Key en header `Authorization: Bearer <token>`  
-✅ Rate limiting (10 req/min)
+✓ TLS 1.2+ obligatorio  
+✓ API Key en header `Authorization: Bearer <token>`  
+✓ Rate limiting (10 req/min)
 
 ---
 

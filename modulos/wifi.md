@@ -1,6 +1,6 @@
 # Wi-Fi - Conectividad
 
-## Estado: ✅ Integrado
+## Estado: Integrado
 
 **Todas las plataformas propuestas incluyen Wi-Fi integrado.**  
 No se requiere módulo externo.
@@ -31,6 +31,6 @@ No se requiere módulo externo.
 - RPi/OPi: 300-500mA constante
 
 **Seguridad:**  
-✅ WPA2/WPA3 soportado  
-✅ TLS para HTTPS  
-❌ Evitar WEP/Open
+✓ WPA2/WPA3 soportado  
+✓ TLS para HTTPS  
+✗ Evitar WEP/Open

@@ -1,8 +1,8 @@
 # LTE/Celular - Conectividad Móvil
 
 ## Cuándo Usar
-✅ Dispositivos móviles sin Wi-Fi  
-⚠️ Requiere: Plan datos mensual, SIM card, antena externa
+✓ Dispositivos móviles sin Wi-Fi  
+• Requiere: Plan datos mensual, SIM card, antena externa
 
 ---
 
@@ -51,11 +51,11 @@
 ## Recomendación
 
 ### Para MVP:
-❌ **No incluir LTE** - Wi-Fi suficiente para prototipo
+✗ **No incluir LTE** - Wi-Fi suficiente para prototipo
 
 ### Para producción móvil:
-➡️ **RPi + USB 4G Dongle** - Más simple y estable
+**RPi + USB 4G Dongle** - Más simple y estable
 
 ### Evitar:
-❌ SIM800L (2G obsoleto)  
-❌ SIM7600 + ESP32 para MVP (muy complejo)
+✗ SIM800L (2G obsoleto)  
+✗ SIM7600 + ESP32 para MVP (muy complejo)

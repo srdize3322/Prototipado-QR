@@ -24,20 +24,20 @@
 
 ## Cuándo Usar S3
 
-✅ Necesitas cámara + procesamiento  
-✅ Requieres >30 GPIO simultáneos  
-✅ USB nativo simplifica debugging  
+✓ Necesitas cámara + procesamiento  
+✓ Requieres >30 GPIO simultáneos  
+✓ USB nativo simplifica debugging  
 
 ---
 
 ## Cuándo NO Usar
 
-❌ MVP simple (QR UART + Wi-Fi)  
-❌ Presupuesto ajustado  
-❌ GPIO suficientes (30 pines)
+✗ MVP simple (QR UART + Wi-Fi)  
+✗ Presupuesto ajustado  
+✗ GPIO suficientes (30 pines)
 
 ---
 
 ## Recomendación
-➡️ **Usar solo si** proyecto escalará a procesamiento imagen o multi-sensores complejos  
-➡️ **Para MVP básico:** ESP32 estándar es más económico
+**Usar solo si** proyecto escalará a procesamiento imagen o multi-sensores complejos  
+**Para MVP básico:** ESP32 estándar es más económico

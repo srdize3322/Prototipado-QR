@@ -4,22 +4,22 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
-## 🎯 Foco del Proyecto
+## Foco del Proyecto
 
 **Objetivo:** Desarrollar un lector QR portátil con conectividad Wi-Fi para eventos, que pueda escanear códigos QR y enviar los datos a un servidor en tiempo real.
 
 **Características principales:**
-- ✅ Lectura rápida de códigos QR (<100ms)
-- ✅ Envío de datos vía Wi-Fi (HTTPS REST)
-- ✅ Indicadores LED de estado
-- ✅ Configuración Wi-Fi simple (captive portal)
-- ✅ Escalable: GPS y LTE opcionales
+- Lectura rápida de códigos QR (<100ms)
+- Envío de datos vía Wi-Fi (HTTPS REST)
+- Indicadores LED de estado
+- Configuración Wi-Fi simple (captive portal)
+- Escalable: GPS y LTE opcionales
 
 ---
 
-## 📅 Plan de Implementación por Fases
+## Plan de Implementación por Fases
 
-### 🎯 Fase 1: Pruebas de Factibilidad (Básico Funcional)
+### Fase 1: Pruebas de Factibilidad (Básico Funcional)
 **Objetivo:** Validar QR + Wi-Fi con Raspberry Pi Zero 2W
 
 **Compras iniciales:**
@@ -37,7 +37,7 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
-### 📡 Fase 2: Optimización (Antena y Estabilidad)
+### Fase 2: Optimización (Antena y Estabilidad)
 **Objetivo:** Mejorar alcance y confiabilidad
 
 **Compras adicionales:**
@@ -51,7 +51,7 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
-### 🖨️ Fase 3: Encapsulado Físico
+### Fase 3: Encapsulado Físico
 **Objetivo:** Diseño de carcasa e integración mecánica
 
 **Actividades:**
@@ -67,7 +67,7 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
-### 🌐 Fase 4: Expansión Avanzada (GPS + LTE)
+### Fase 4: Expansión Avanzada (GPS + LTE)
 **Objetivo:** Agregar geolocalización y conectividad móvil
 **Prerequisito:** Módulo base (WiFi + QR + RPi) **funcionando correctamente**
 
@@ -83,14 +83,14 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
-## 🎯 Recomendación Final
+## Recomendación Final
 
-### 🥇 Raspberry Pi Zero 2W - **PRIMERA OPCIÓN**
+### Raspberry Pi Zero 2W - PRIMERA OPCIÓN
 - **Precio:** $20 | **MVP completo:** $60-130
 - **Por qué:** USB host real, múltiples periféricos sin conflicto, Linux robusto
 - **Cuándo:** Producción, escalabilidad, QR + LTE + GPS
 
-### 🥈 ESP32-DevKit - **SEGUNDA OPCIÓN**  
+### ESP32-DevKit - SEGUNDA OPCIÓN  
 - **Precio:** $8 | **MVP simple:** $45
 - **Por qué:** Económico, suficiente para caso básico
 - **Cuándo:** Solo QR + Wi-Fi, sin expansión futura
@@ -99,9 +99,9 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
-## 📶 Configuración Wi-Fi Inicial
+## Configuración Wi-Fi Inicial
 
-**Todos los dispositivos** pueden crear red Wi-Fi propia para configuración:
+Todos los dispositivos pueden crear red Wi-Fi propia para configuración:
 
 1. Primera vez → crea red "QR-Setup-XXX"
 2. Usuario conecta con teléfono
@@ -109,11 +109,11 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 4. Dispositivo guarda y se reconecta
 5. Listo para usar
 
-✅ **Trivial en RPi y ESP32** - No es factor diferenciador.
+**Nota:** Implementación trivial en RPi y ESP32 - No es factor diferenciador.
 
 ---
 
-## 💰 Costos por Configuración
+## Costos por Configuración
 
 | Config | Plataforma | Precio | Uso |
 |--------|------------|--------|-----|
@@ -125,12 +125,12 @@ Sistema modular IoT: lectura QR, envío Wi-Fi, escalable (GPS/LTE).
 
 ---
 
-## 📂 Estructura
+## Estructura
 
 ```
 propuestas/          # Módulos base
-├── raspberry-pi-zero-2w.md  🥇 Recomendado
-├── esp32-devkit.md          🥈 Alternativa
+├── raspberry-pi-zero-2w.md  [Recomendado]
+├── esp32-devkit.md          [Alternativa]
 ├── orange-pi-zero2.md
 ├── esp32-s3.md
 └── arduino-mkr-wifi-1010.md
@@ -145,7 +145,7 @@ modulos/             # Periféricos
 
 ---
 
-## 🚀 Comenzar Rápido
+## Comenzar Rápido
 
 ### Opción A: Producción (Recomendado)
 - Raspberry Pi Zero 2W: $20
@@ -161,7 +161,7 @@ modulos/             # Periféricos
 
 ---
 
-## 📋 Decisión por Caso
+## Decisión por Caso
 
 | Tu Necesidad | Usa | Por Qué |
 |--------------|-----|---------|
@@ -172,14 +172,14 @@ modulos/             # Periféricos
 
 ---
 
-## 📖 Documentación
+## Documentación
 
 - [propuestas/README.md](propuestas/README.md) - Análisis técnico completo
 - [modulos/README.md](modulos/README.md) - Periféricos y compatibilidad
 
 ---
 
-## ⚠️ Nota Importante
+## Nota Importante
 
 **ESP32 con múltiples periféricos:**
 - Solo 3 UART (QR + LTE + GPS = conflicto)

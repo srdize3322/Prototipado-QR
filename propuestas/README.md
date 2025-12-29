@@ -30,7 +30,7 @@
 
 ## Configuración Wi-Fi Inicial (Todas las Plataformas)
 
-**📶 IMPORTANTE:** Todos los dispositivos pueden crear su propia red Wi-Fi temporal para configuración inicial.
+**IMPORTANTE:** Todos los dispositivos pueden crear su propia red Wi-Fi temporal para configuración inicial.
 
 ### Funcionamiento:
 1. **Primera vez:** Dispositivo crea red Wi-Fi propia (ej: "QR-Setup-ABC123")
@@ -44,9 +44,9 @@
 
 | Plataforma | Método | Complejidad | Código Disponible |
 |------------|--------|-------------|-------------------|
-| **Raspberry Pi** | hostapd + web server | ⭐⭐ Fácil | ✅ Librerías Python/Flask |
-| **ESP32** | WiFi.softAP() + WebServer | ⭐⭐ Fácil | ✅ Ejemplos Arduino abundantes |
-| **Orange Pi** | NetworkManager AP mode | ⭐⭐ Fácil | ✅ Scripts bash estándar |
+| **Raspberry Pi** | hostapd + web server | Fácil | ✓ Librerías Python/Flask |
+| **ESP32** | WiFi.softAP() + WebServer | Fácil | ✓ Ejemplos Arduino abundantes |
+| **Orange Pi** | NetworkManager AP mode | Fácil | ✓ Scripts bash estándar |
 
 **Conclusión:** Configuración Wi-Fi inicial es **trivial en todas las opciones**. No es factor diferenciador.
 
@@ -80,9 +80,9 @@
 
 | Riesgo | ESP32 | RPi Zero 2W |
 |--------|-------|-------------|
-| Múltiples periféricos | 🔴 | 🟢 |
-| Debug en campo | 🔴 | 🟢 |
-| Escalabilidad | 🔴 | 🟢 |
+| Múltiples periféricos | Alto | Bajo |
+| Debug en campo | Alto | Bajo |
+| Escalabilidad | Alto | Bajo |
 
 **Diferencia de costo:** +$15-30 → **Elimina riesgos críticos**
 
@@ -92,8 +92,8 @@
 
 | Plataforma | Precio | Uso Recomendado |
 |------------|--------|-----------------|
-| **Raspberry Pi Zero 2W** | $20 | ⭐ **1ª opción** - Producción/múltiples periféricos |
-| **ESP32-DevKit** | $8 | **2ª opción** - MVP mínimo sin expansión |
+| **Raspberry Pi Zero 2W** | $20 | 1ª opción - Producción/múltiples periféricos |
+| **ESP32-DevKit** | $8 | 2ª opción - MVP mínimo sin expansión |
 | **Orange Pi Zero2** | $19 | Alternativa a RPi si no disponible |
 | **Arduino MKR 1010** | $45 | Solo si batería integrada crítica |
 

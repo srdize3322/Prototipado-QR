@@ -13,22 +13,22 @@
 
 ## Limitaciones Críticas
 
-❌ **Solo 1 UART:** QR o debug, no ambos  
-❌ **8 GPIO:** Muy limitado  
-❌ **Precio:** $40 vs $8 ESP32 (5x más caro)  
-❌ **32KB RAM:** Insuficiente para proyectos complejos
+✗ **Solo 1 UART:** QR o debug, no ambos  
+✗ **8 GPIO:** Muy limitado  
+✗ **Precio:** $40 vs $8 ESP32 (5x más caro)  
+✗ **32KB RAM:** Insuficiente para proyectos complejos
 
 ---
 
 ## Única Ventaja
 
-✅ **Cargador Li-Po integrado** (JST conector)
+✓ **Cargador Li-Po integrado** (JST conector)
 
 ---
 
 ## Recomendación
 
-❌ **NO recomendado** para MVP  
+✗ **NO recomendado** para MVP  
 - 5x más caro que ESP32  
 - Limitaciones técnicas severas  
 - Solo considerar si cargador integrado es requisito absoluto

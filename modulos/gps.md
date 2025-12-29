@@ -58,9 +58,9 @@
 ## Recomendación
 
 ### Para MVP:
-⚠️ **Opcional** - Solo si geolocalización es requerida  
-➡️ **NEO-6M** ($8-10) si presupuesto ajustado  
-➡️ **NEO-M8N** ($12-15) si mejor rendimiento
+**Opcional** - Solo si geolocalización es requerida  
+**NEO-6M** ($8-10) si presupuesto ajustado  
+**NEO-M8N** ($12-15) si mejor rendimiento
 
 ### Sistema base + GPS:
 - ESP32 + QR: $45

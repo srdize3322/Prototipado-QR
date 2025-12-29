@@ -24,22 +24,22 @@
 ---
 
 ## Ventajas
-✅ Wi-Fi 5GHz (mejor velocidad)  
-✅ USB Type-A directo (no adaptador)  
-✅ CPU más rápido (1.5GHz vs 1GHz)
+✓ Wi-Fi 5GHz (mejor velocidad)  
+✓ USB Type-A directo (no adaptador)  
+✓ CPU más rápido (1.5GHz vs 1GHz)
 
 ---
 
 ## Desventajas
-⚠️ Menos documentación  
-⚠️ Drivers menos maduros  
-⚠️ Comunidad más pequeña
+• Menos documentación  
+• Drivers menos maduros  
+• Comunidad más pequeña
 
 ---
 
 ## Recomendación
-➡️ **Considera si:** Ya conoces Orange Pi, quieres 5GHz  
-⚠️ **Para MVP:** Mejor RPi (mejor soporte)
+**Considerar si:** Ya conoces Orange Pi, quieres 5GHz  
+**Para MVP:** Mejor RPi (mejor soporte)
 - ⚠️ GPIO: Menos documentado
 
 ## Recomendación

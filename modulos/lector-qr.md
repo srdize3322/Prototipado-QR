@@ -74,7 +74,7 @@ VCC → 5V | GND → GND | TX → GPIO16 | RX → GPIO17
 
 ## Recomendación
 
-➡️ **GM67 ($28-30)** + plataforma elegida  
+**GM67 ($28-30)** + plataforma elegida  
 - Mejor balance precio/rendimiento
 - Compatible con todas las plataformas
 - Velocidad suficiente (<100ms)

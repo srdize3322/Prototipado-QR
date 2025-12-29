@@ -1,4 +1,4 @@
-# 🥈 ESP32-DevKit - Económico
+# [2] ESP32-DevKit - Económico
 
 ## Specs Clave
 - **CPU:** Dual-core Xtensa @ 240MHz
@@ -14,19 +14,19 @@
 
 ## Ventajas
 
-✅ **Precio:** $8 (lo más barato)  
-✅ **Consumo:** 0.8W (ideal batería)  
-✅ **Boot:** 2s (rápido)  
-✅ **3× UART:** QR, GPS, debug simultáneos
+✓ **Precio:** $8 (lo más barato)  
+✓ **Consumo:** 0.8W (ideal batería)  
+✓ **Boot:** 2s (rápido)  
+✓ **3× UART:** QR, GPS, debug simultáneos
 
 ---
 
 ## Limitaciones
 
-⚠️ **No USB Host:** Solo periféricos UART  
-⚠️ **1 QR + 1 GPS máximo:** No más de 3 UART  
-⚠️ **LTE complejo:** Requiere fuente externa 3A  
-⚠️ **Arduino IDE:** Debugging limitado vs Linux
+• **No USB Host:** Solo periféricos UART  
+• **1 QR + 1 GPS máximo:** No más de 3 UART  
+• **LTE complejo:** Requiere fuente externa 3A  
+• **Arduino IDE:** Debugging limitado vs Linux
 
 ---
 
@@ -42,18 +42,18 @@
 
 ## Cuándo Usar
 
-✅ Presupuesto mínimo (<$50)  
-✅ Solo QR o QR+GPS  
-✅ Batería (bajo consumo)  
-✅ Producción masiva (barato)
+✓ Presupuesto mínimo (<$50)  
+✓ Solo QR o QR+GPS  
+✓ Batería (bajo consumo)  
+✓ Producción masiva (barato)
 
 ---
 
 ## Cuándo NO Usar
 
-❌ Necesitas 3+ periféricos  
-❌ Requieres USB (dongles 4G)  
-❌ Lógica compleja (bases de datos)
+✗ Necesitas 3+ periféricos  
+✗ Requieres USB (dongles 4G)  
+✗ Lógica compleja (bases de datos)
 | **OLED/TFT** | ✅ | I2C/SPI estándar |
 | **Batería** | ⚠️ | Requiere TP4056 externo |
 

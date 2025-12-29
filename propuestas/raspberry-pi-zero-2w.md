@@ -1,4 +1,4 @@
-# 🥇 Raspberry Pi Zero 2W - **TOP CHOICE**
+# [1] Raspberry Pi Zero 2W - TOP CHOICE
 
 ## Specs Clave
 - **SoC:** Quad-core ARM Cortex-A53 @ 1GHz
@@ -13,19 +13,19 @@
 
 ## Por Qué es #1
 
-✅ **USB Host:** Conecta múltiples periféricos (QR + LTE + GPS USB)  
-✅ **Sin límites UART:** No hay conflictos de pines  
-✅ **Linux completo:** Python, Node.js, drivers disponibles  
-✅ **Precio:** $20 (más barato que pensábamos)  
-✅ **Desarrollo rápido:** SSH, apt, npm, pip
+✓ **USB Host:** Conecta múltiples periféricos (QR + LTE + GPS USB)  
+✓ **Sin límites UART:** No hay conflictos de pines  
+✓ **Linux completo:** Python, Node.js, drivers disponibles  
+✓ **Precio:** $20 (más barato que pensábamos)  
+✓ **Desarrollo rápido:** SSH, apt, npm, pip
 
 ---
 
 ## Limitaciones
 
-⚠️ **Wi-Fi:** Solo 2.4GHz (suficiente para IoT)  
-⚠️ **Consumo:** Mayor que ESP32 (~2W vs 0.5W)  
-⚠️ **Boot:** 20-40s (vs 2s ESP32)  
+• **Wi-Fi:** Solo 2.4GHz (suficiente para IoT)  
+• **Consumo:** Mayor que ESP32 (~2W vs 0.5W)  
+• **Boot:** 20-40s (vs 2s ESP32)  
 
 ---
 
@@ -41,17 +41,17 @@
 
 ## Cuándo Usar
 
-✅ Necesitas 2+ periféricos USB  
-✅ Lógica compleja (base de datos local, caching)  
-✅ Desarrollo rápido (prototipo)
+✓ Necesitas 2+ periféricos USB  
+✓ Lógica compleja (base de datos local, caching)  
+✓ Desarrollo rápido (prototipo)
 
 ---
 
 ## Cuándo NO Usar
 
-❌ Consumo crítico (batería)  
-❌ Presupuesto mínimo ($20 vs $8 ESP32)  
-❌ Boot rápido requerido
+✗ Consumo crítico (batería)  
+✗ Presupuesto mínimo ($20 vs $8 ESP32)  
+✗ Boot rápido requerido
 
 ## vs ESP32
 
