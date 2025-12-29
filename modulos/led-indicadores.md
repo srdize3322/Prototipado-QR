@@ -1,33 +1,17 @@
 # LEDs & Indicadores
 
-## Estados del Sistema
+Componentes para monitorear estado del sistema visualmente.
 
-| Estado | Verde | Rojo | Descripción |
-|--------|-------|------|-------------|
-| Boot | 3 blinks | OFF | Iniciando |
-| Wi-Fi conectando | Pulsando | OFF | Buscando red |
-| Wi-Fi OK | Fijo | OFF | Listo |
-| QR leído OK | 2 blinks | OFF | Scan exitoso |
-| Error servidor | OFF | 3 blinks | HTTP error |
-| Error QR | OFF | Pulsando | Ilegible |
-| Sin Wi-Fi | OFF | Fijo | Desconectado |
+## Opciones Disponibles
 
----
+| Opción | Precio | Uso |
+|--------|--------|-----|
+| **LEDs individuales** | $0.50 | Estados básicos (2 LEDs + resistencias 220Ω) |
+| **LED RGB** | $1.50 | Múltiples colores con 1 pin GPIO |
+| **OLED 0.96"** | $3-5 | Texto y mensajes detallados |
+| **Buzzer** | $0.50 | Señales sonoras |
 
-## Opciones
+## Recomendación
 
-| Opción | Precio | GPIO | Ventaja | Complejidad |
-|--------|--------|------|---------|-------------|
-| **2 LEDs individuales** | $0.50 | 2 | Suficiente para MVP | Muy fácil |
-| **LED RGB (WS2812)** | $1.50 | 1 | Múltiples colores | Fácil |
-| **OLED 0.96" I2C** | $3-5 | 2 | Texto, debugging | Media |
-| **Buzzer** | $0.50 | 1 | Beep confirmación | Fácil |
-
-**Conexión LEDs individuales:** GPIO → 220Ω → LED → GND (Verde=GPIO25, Rojo=GPIO26)
-
----
-
-## Recomendación MVP
-
-**2 LEDs (Verde + Rojo)** + resistencias 220Ω = $0.50  
-Suficiente para todos los estados del sistema.
+**2 LEDs (Verde + Rojo)** con resistencias 220Ω = $0.50  
+Suficiente para indicar: inicialización, conectividad, escaneo exitoso y errores.
