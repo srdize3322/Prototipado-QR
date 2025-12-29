@@ -1,61 +1,42 @@
 # LTE/Celular - Conectividad Móvil
 
-## Cuándo Usar
-✓ Dispositivos móviles sin Wi-Fi  
-• Requiere: Plan datos mensual, SIM card, antena externa
+Módulo opcional para dispositivos sin cobertura Wi-Fi. Requiere plan de datos mensual, SIM card y antena externa.
 
 ---
 
 ## Opciones
 
-| Módulo | Precio | Interface | Consumo | Recomendación |
-|--------|--------|-----------|---------|---------------|
-| **SIM7600 (4G)** | $25-35 | UART | 2A peak | RPi con cuidado |
-| **USB 4G Dongle** | $30-50 | USB | 500mA | ⭐ RPi/OPi (fácil) |
-| **SIM7070G (NB-IoT)** | $15-20 | UART | 500mA | Bajo consumo IoT |
+| Módulo | Precio | Interface | Consumo | Uso |
+|--------|--------|-----------|---------|-----|
+| **USB 4G Dongle** | $30-50 | USB | 500mA | Recomendado RPi/OPi |
+| **SIM7600 (4G)** | $25-35 | UART | 2A peak | Complejo, requiere fuente externa |
+| **SIM7070G (NB-IoT)** | $15-20 | UART | 500mA | IoT bajo consumo |
 
 ---
 
-## Configuración por Plataforma
+## Implementación
 
-### Raspberry Pi / Orange Pi: ⭐ Recomendado
-**USB 4G Dongle:**
-- Plug & play
-- NetworkManager automático
-- Ejemplos: Huawei E3372, ZTE MF823
-- Costo: $30-50
-- **Más simple que UART**
+**Raspberry Pi / Orange Pi:**  
+USB 4G Dongle (Huawei E3372, ZTE MF823): plug & play con NetworkManager. Costo $30-50.
 
-### ESP32: ⚠️ Complejo
-**SIM7600 UART:**
-- Requiere fuente 5V/3A externa
-- Buck converter 3.8V dedicado
-- Comandos AT manuales
-- Cableado: TX→GPIO4, RX→GPIO2, PWRKEY→GPIO5
-- **No recomendado para MVP**
+**ESP32:**  
+SIM7600 UART: requiere fuente 5V/3A externa, buck converter 3.8V y comandos AT manuales. No recomendado para MVP.
 
 ---
 
-## Costos Reales
+## Costos
 
-| Config | HW | Datos/mes | Total Mensual |
-|--------|----|-----------|--------------
-|--------|
-| **RPi + Dongle** | $80 | $5-15 | $85-95 primer mes |
-| **ESP32 + SIM7600** | $95 | $5-15 | $100-110 primer mes |
+| Config | Hardware | Datos/mes | Total |
+|--------|----------|-----------|-------|
+| RPi + Dongle | $80 | $5-15 | $85-95 |
+| ESP32 + SIM7600 | $95 | $5-15 | $100-110 |
 
-**Estimación consumo:** ~2KB por scan → 1000 scans = 2MB/mes
+Estimación consumo: ~2KB por scan → 1000 scans = 2MB/mes
 
 ---
 
 ## Recomendación
 
-### Para MVP:
-✗ **No incluir LTE** - Wi-Fi suficiente para prototipo
-
-### Para producción móvil:
-**RPi + USB 4G Dongle** - Más simple y estable
-
-### Evitar:
-✗ SIM800L (2G obsoleto)  
-✗ SIM7600 + ESP32 para MVP (muy complejo)
+**Para MVP:** No incluir LTE - Wi-Fi suficiente  
+**Para producción móvil:** RPi + USB 4G Dongle  
+**Evitar:** SIM800L (2G obsoleto), SIM7600 + ESP32 (muy complejo)
